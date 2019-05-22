@@ -1,0 +1,133 @@
+<div class="profile">
+  <div class="line-profile">
+    <div class="line-details">
+      <div class="line-avatar">
+        <nz-avatar class="line-avatar-circle"
+                   [ngStyle]="{'background-color': '#cdb962', 'line-height': 'initial'}"
+                   [nzText]="currentLine.id"
+                   [nzSize]="120"></nz-avatar>
+      </div>
+      <div class="line-summary">
+        <div class="full-name">{{currentLine.name}}</div>
+        <div class="linedetail" style="width: 100%; padding-top: 10%">
+          <nz-steps nzProgressDot [nzCurrent]="1">
+            <nz-step nzTitle="FROM" [nzDescription]="getFrom()"></nz-step>
+            <nz-step nzTitle="TO" [nzDescription]="getDest()"></nz-step>
+          </nz-steps>
+        </div>
+
+        <div class="full-name" style="padding-top: 6%" *ngIf="disabled">
+          Select a going station
+        </div>
+
+        <div class="full-name" style="padding-top: 6%" *ngIf="!disabled">
+          Select a return station
+        </div>
+
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" style="width: 350px" class="list" [nzSelectedIndex]="selectIndex">
+          <nz-tab [nzTitle]="'Going'" [nzDisabled]="isDisabled()">
+            <nz-table #StopsTable_going nzBordered [nzData]="this.stopsList_going" [nzHideOnSinglePage]="true" style="width: 350px" nzPageSize="6">
+              <thead>
+              <tr>
+                <th nzWidth="60%">STOPS GOING</th>
+                <th nzWidth="20%">TIME</th>
+                <th *ngIf="this.currentChildName != undefined">
+
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of StopsTable_going.data" class="editable-row">
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.stop.name }}
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.hour }}
+                  </div>
+                </td>
+                <td *ngIf="this.currentChildName != undefined">
+                  <a (click)="setStopGoingDefault(data)">
+                    <i nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" style="font-size: 25px; padding-left: 3%" [nzTwotoneColor]="'#52c41a'"></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+          </nz-tab>
+
+          <nz-tab [nzTitle]="'Return'" [nzDisabled]="isDisabled()">
+            <nz-table #StopsTable_return nzBordered [nzData]="this.stopsList_return" [nzHideOnSinglePage]="true" style="width: 350px" nzPageSize="6">
+              <thead>
+              <tr>
+                <th nzWidth="60%">STOPS RETURN</th>
+                <th nzWidth="20%">TIME</th>
+                <th *ngIf="this.currentChildName != undefined"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of StopsTable_return.data" class="editable-row">
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.stop.name }}
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.hour }}
+                  </div>
+                </td>
+                <td *ngIf="this.currentChildName != undefined">
+                  <a (click)="submitDefault(data)">
+                    <i nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" style="font-size: 25px; padding-left: 3%" [nzTwotoneColor]="'#52c41a'"></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+          </nz-tab>
+
+          <nz-tab *ngIf="this.currentChildName === undefined" nzTitle="Admins">
+
+            <nz-list [nzDataSource]="this.admins" [nzRenderItem]="adminS" [nzItemLayout]="'horizontal'">
+              <ng-template #adminS let-admin>
+                <nz-list-item>
+                  <div *ngIf="admin.imageUrl; else noImageTemplate">
+                    <a (click)="goToUser(admin)">
+                      <nz-avatar class="user-avatar-circle" [nzSrc]="admin.imageUrl"></nz-avatar>
+                    </a>
+                  </div>
+                  <ng-template #noImageTemplate>
+                    <nz-avatar class="user-avatar-circle"
+                               (click)="goToUser(admin)"
+                               [ngStyle]="{'background-color': this.authService.getAvatarColor(admin.name), 'line-height': 'initial'}"
+                               nzIcon="user"
+                               [nzSize]="70"></nz-avatar>
+                  </ng-template>
+                  <div class="user-summary">
+                    <div class="full-name">
+                      <a (click)="goToUser(admin)">
+                        {{ admin.name }}
+                      </a>
+                    </div>
+                    <div>
+                      <a class="username">
+                        {{ admin.email }}
+                      </a>
+                    </div>
+
+                  </div>
+                </nz-list-item>
+              </ng-template>
+            </nz-list>
+
+          </nz-tab>
+
+        </nz-tabset>
+
+      </div>
+    </div>
+  </div>
+</div>

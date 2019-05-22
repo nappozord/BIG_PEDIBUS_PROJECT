@@ -1,0 +1,168 @@
+<div>
+
+  <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="list">
+
+    <nz-tab [nzTitle]="'Going'">
+      <nz-list [nzDataSource]="allLines" [nzRenderItem]="lines" [nzItemLayout]="'horizontal'">
+        <ng-template #lines let-line>
+          <nz-list-item>
+            <div class="line-summary">
+              <div class="full-name" *ngIf="checkNew(line, 0); else update">
+                <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to confirm" (click)="newTurn(line, 0)">
+                  <div class="line-avatar">
+                    <nz-avatar class="line-avatar-circle"
+                               [nzText]="line.id"
+                               [ngStyle]="{'background-color': '#cdb962'}"
+                               [nzSize]="40"></nz-avatar>
+                  </div>
+                  {{ line.name }}
+                </a>
+              </div>
+              <ng-template #update>
+                <div class="full-name" *ngIf="checkEdit(line, 0, 0); else update2">
+                  <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to cancel" (click)="deleteTurn(line, 0)">
+                    <div class="line-avatar">
+                      <nz-avatar class="line-avatar-circle"
+                                 [nzIcon]="'close'"
+                                 [ngStyle]="{'background-color': '#861200'}"
+                                 [nzSize]="40"></nz-avatar>
+                    </div>
+                    {{ line.name }}
+                  </a>
+                </div>
+              </ng-template>
+              <ng-template #update2>
+                <div class="full-name">
+                  <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to update" (click)="changeTurn(line, 0)">
+                    <div class="line-avatar">
+                      <nz-avatar class="line-avatar-circle"
+                                 [nzIcon]="'edit'"
+                                 [ngStyle]="{'background-color': '#4a8666'}"
+                                 [nzSize]="40"></nz-avatar>
+                    </div>
+                    {{ line.name }}
+                  </a>
+                </div>
+              </ng-template>
+              <div class="linedetail">
+                <nz-steps nzProgressDot [nzCurrent]="1" (click)="edited_going.push(line.id)">
+                  <nz-step nzTitle="FROM" [nzDescription]="updateFrom" (click)="edit_from = line.id"></nz-step>
+                  <nz-step nzTitle="TO" [nzDescription]="updateTo" (click)="edit_to = line.id"></nz-step>
+                  <ng-template #updateFrom>
+                    <div *ngIf="checkEdit(line, 0, null); else editFrom">
+                      {{ getFrom(line, 0) }}
+                    </div>
+                    <ng-template #editFrom>
+                      <form (ngSubmit)="submitValue_g(line, name_g_g.value, 0)">
+                        <input nz-input #name_g_g
+                               (input)="this.authService.OnInputFilteredStopLines(name_g_g.value, line, 0)"
+                               [nzAutocomplete]="auto_g_g">
+                        <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto_g_g></nz-autocomplete>
+                      </form>
+                    </ng-template>
+                  </ng-template>
+                  <ng-template #updateTo>
+                    <div *ngIf="checkEdit(line, 1, null); else editTo">
+                      {{ getDest(line, 0) }}
+                    </div>
+                    <ng-template #editTo>
+                      <form (ngSubmit)="submitValue_g(line, name_g_r.value, 1)">
+                        <input nz-input #name_g_r
+                               (input)="this.authService.OnInputFilteredStopLines(name_g_r.value, line, 1)"
+                               [nzAutocomplete]="auto_g_r">
+                        <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto_g_r></nz-autocomplete>
+                      </form>
+                    </ng-template>
+                  </ng-template>
+                </nz-steps>
+              </div>
+            </div>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </nz-tab>
+
+    <nz-tab [nzTitle]="'Return'">
+      <nz-list [nzDataSource]="allLines" [nzRenderItem]="lines_r" [nzItemLayout]="'horizontal'">
+        <ng-template #lines_r let-line>
+          <nz-list-item>
+            <div class="line-summary">
+              <div class="full-name" *ngIf="checkNew(line, 1); else update_r">
+                <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to confirm" (click)="newTurn(line, 1)">
+                  <div class="line-avatar">
+                    <nz-avatar class="line-avatar-circle"
+                               [nzText]="line.id"
+                               [ngStyle]="{'background-color': '#cdb962'}"
+                               [nzSize]="40"></nz-avatar>
+                  </div>
+                  {{ line.name }}
+                </a>
+              </div>
+              <ng-template #update_r>
+                <div class="full-name" *ngIf="checkEdit(line, 1, 1); else update2_r">
+                  <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to cancel" (click)="deleteTurn(line, 1)">
+                    <div class="line-avatar">
+                      <nz-avatar class="line-avatar-circle"
+                                 [nzIcon]="'close'"
+                                 [ngStyle]="{'background-color': '#861200'}"
+                                 [nzSize]="40"></nz-avatar>
+                    </div>
+                    {{ line.name }}
+                  </a>
+                </div>
+              </ng-template>
+              <ng-template #update2_r>
+                <div class="full-name">
+                  <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to update" (click)="changeTurn(line, 1)">
+                    <div class="line-avatar">
+                      <nz-avatar class="line-avatar-circle"
+                                 [nzIcon]="'edit'"
+                                 [ngStyle]="{'background-color': '#4a8666'}"
+                                 [nzSize]="40"></nz-avatar>
+                    </div>
+                    {{ line.name }}
+                  </a>
+                </div>
+              </ng-template>
+              <div class="linedetail">
+                <nz-steps nzProgressDot [nzCurrent]="1" (click)="edited_return.push(line.id)">
+                  <nz-step nzTitle="FROM" [nzDescription]="updateTo_r" (click)="edit_to = line.id"></nz-step>
+                  <nz-step nzTitle="TO" [nzDescription]="updateFrom_r" (click)="edit_from = line.id"></nz-step>
+                  <ng-template #updateFrom_r>
+                    <div *ngIf="checkEdit(line, 0, null); else editFrom_r">
+                      {{ getFrom(line, 1) }}
+                    </div>
+                    <ng-template #editFrom_r>
+                      <form (ngSubmit)="submitValue_r(line, name_r_g.value, 0)">
+                        <input nz-input #name_r_g
+                               (input)="this.authService.OnInputFilteredStopLines(name_r_g.value, line, 0)"
+                               [nzAutocomplete]="auto_r_g">
+                        <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto_r_g></nz-autocomplete>
+                      </form>
+                    </ng-template>
+                  </ng-template>
+
+                  <ng-template #updateTo_r>
+                    <div *ngIf="checkEdit(line, 1, null); else editTo_r">
+                      {{ getDest(line, 1) }}
+                    </div>
+                    <ng-template #editTo_r>
+                      <form (ngSubmit)="submitValue_r(line, name_r_r.value, 1)">
+                        <input nz-input #name_r_r
+                               (input)="this.authService.OnInputFilteredStopLines(name_r_r.value, line, 1)"
+                               [nzAutocomplete]="auto_r_r">
+                        <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto_r_r></nz-autocomplete>
+                      </form>
+                    </ng-template>
+                  </ng-template>
+                </nz-steps>
+              </div>
+            </div>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </nz-tab>
+
+  </nz-tabset>
+
+</div>

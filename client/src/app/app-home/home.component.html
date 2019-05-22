@@ -1,0 +1,90 @@
+<div class="home-container" *ngIf="!authService.isLoggedIn(); else homeTpl">
+  <div class="container">
+    <div class="graf-bg-container">
+      <div class="graf-layout">
+        <img style="width: 100%; height: auto;"
+          src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e0bd42a6-995e-42a4-87fe-3ea9e97a4623/dd5vdis-185e7199-a16e-4e43-8c86-095ab4d06b79.png/v1/fill/w_1024,h_592,strp/old_man_and_young_man_by_nappozord_dd5vdis-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTkyIiwicGF0aCI6IlwvZlwvZTBiZDQyYTYtOTk1ZS00MmE0LTg3ZmUtM2VhOWU5N2E0NjIzXC9kZDV2ZGlzLTE4NWU3MTk5LWExNmUtNGU0My04Yzg2LTA5NWFiNGQwNmI3OS5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.KnVx0iMSmF8yV0Wl9ReXejLpWN-2yAufqCJiQOgKSWo"/>
+        <h1 class="home-title">Trust somebody's else Grampa :)</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #homeTpl>
+  <nz-card class="card-container" style="margin-right: 10%;">
+    <h2 style="text-align: center">Your driver turn on: {{ date | date: 'dd-MM-yyyy' }}</h2>
+
+    <div style="margin-top: 20px; margin-bottom: 30px;">
+      <nz-date-picker [(ngModel)]="date" [nzAllowClear]="false" (ngModelChange)="getStopLines()" nzSize="large"
+                       style="width: 70%; float: left"></nz-date-picker>
+
+      <button nz-button (click)="selectGoingOrReturn()" nzSize="large" style="width: 30%">{{GorR ? 'GOING' : 'RETURN'}}</button>
+    </div>
+
+    <nz-timeline>
+      <div *ngFor="let stopLine of this.currentStopLines">
+        <nz-timeline-item nzColor="green">
+          <nz-collapse>
+            <nz-collapse-panel [nzHeader]="stopLine.stop.name" style="font-weight: 600; font-size: 17px">
+              <a *ngFor="let reservation of currentReservation" style="font-weight: 400">
+                <a *ngIf="getChildReservation(reservation, stopLine)" nz-popover
+                   (click)="setMarked(reservation)">
+                  <a *ngIf="reservation.status !== 'TAKEN'; else takenRes">{{reservation.child}} </a>
+                  <ng-template #takenRes>
+                    <a style="color: #108EE9; font-weight: 600">{{reservation.child}} </a>
+                  </ng-template>
+                </a>
+              </a>
+              <a *ngFor="let user of getChildDefault(stopLine)" style="font-weight: 400" nz-popover
+                 (click)="setReservation(user, stopLine)">
+                {{user}}
+              </a>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </nz-timeline-item>
+      </div>
+    </nz-timeline>
+
+  </nz-card>
+
+  <nz-card class="card-container">
+
+    <h2 style="text-align: center">Your children's reservations Today</h2>
+
+    <div>
+      <nz-list [nzDataSource]="allChildren" [nzRenderItem]="children" [nzItemLayout]="'horizontal'" style="padding-top: 2%">
+        <ng-template #children let-child>
+          <nz-list-item>
+            <div class="user-avatar">
+              <nz-avatar class="user-avatar-circle"
+                         (click)="goToChild(child.child)"
+                         [ngStyle]="{'background-color': this.getAvatarColor(this.child.child.childName), 'line-height': 'initial'}"
+                         nzIcon="smile"
+                         [nzSize]="60">
+              </nz-avatar>
+            </div>
+            <div class="user-summary">
+              <a (click)="goToChild(child.child)" class="full-name">
+                {{ child.child.childName }}
+              </a>
+              <div class="username">
+                <a *ngIf="hasNotDefaultYet(child.child); else subscribed" (click)="this.router.navigate(['/lines', { child: child.child.childName }])">
+                  Subscribe to a new line now!
+                </a>
+                <ng-template #subscribed>
+                  <div *ngIf="isChildTaken(child); else notTaken">
+                    <nz-badge nzStatus="success" nzText="On the PEDIbus"></nz-badge>
+                  </div>
+                  <ng-template #notTaken>
+                    <nz-badge nzStatus="processing" nzText="STOP: {{getWaitingInStop(child)}}"></nz-badge>
+                  </ng-template>
+                </ng-template>
+              </div>
+            </div>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </div>
+
+  </nz-card>
+</ng-template>

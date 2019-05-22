@@ -1,0 +1,16 @@
+<div class="page-not-found">
+  <div *ngIf="!hasToken(); else notTokenTemplate">
+    <form nz-form class="login-form" (ngSubmit)="submitForm_1($event)">
+      <h1 class="title">Almost there</h1>
+      <div class="desc">Check your email ({{this.email}}), we've sent you a link to complete your password reset!</div>
+      <button nz-button class="go-back-btn" nzType="primary" nzSize="large">Go Back</button>
+    </form>
+  </div>
+  <ng-template #notTokenTemplate>
+    <form nz-form class="login-form" (ngSubmit)="submitForm_2($event)">
+      <h1 class="title">Thank you!</h1>
+      <div class="desc">Please confirm your password reset</div>
+      <button nz-button class="go-back-btn" nzType="primary" nzSize="large">Confirm</button>
+    </form>
+  </ng-template>
+</div>

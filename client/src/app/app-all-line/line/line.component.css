@@ -1,0 +1,126 @@
+.line-details {
+  margin-bottom: 44px;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.line-avatar-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  line-height: 60px;
+}
+
+.line-avatar-circle > * {
+  line-height: 120px;
+  font-size: 40px;
+  position: relative !important;
+  left: 0 !important;
+}
+
+.line-summary {
+  text-align: center;
+  padding-top: 20px;
+}
+
+@media (min-width: 576px) {
+  .line-details {
+    text-align: left;
+    display: table;
+  }
+
+  .line-avatar, .line-summary {
+    float: left;
+    text-align: left;
+  }
+
+  .line-summary {
+    padding-top: 0;
+    padding-left: 40px;
+
+  }
+}
+
+.line-summary .full-name {
+  font-size: 25px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.85);
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.line-summary .linedetail {
+  padding-top: 20px;
+}
+
+.line-summary .line-joined {
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .line-summary .full-name {
+    font-size: 24px;
+  }
+}
+
+.list {
+  padding-top: 10%;
+}
+
+.editable-row-operations a {
+  margin-right: 8px;
+}
+
+.editable-cell {
+  position: relative;
+}
+
+.editable-cell-value-wrap {
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.editable-row:hover .editable-cell-value-wrap {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 4px 11px;
+}
+
+.login-form-button {
+  width: 40%;
+}
+
+.user-summary {
+  padding-left: 5%;
+}
+
+.user-summary .full-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.85);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.user-summary .username {
+  font-size: 15px;
+}
+
+.user-avatar-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 60px;
+  line-height: 60px;
+}
+
+.user-avatar-circle > * {
+  line-height: 70px;
+  font-size: 40px;
+  position: relative !important;
+  left: 0 !important;
+}

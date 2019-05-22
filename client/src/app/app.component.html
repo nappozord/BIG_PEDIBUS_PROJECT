@@ -1,0 +1,226 @@
+<nz-layout class="layout" style="height: 100%" >
+
+  <nz-header class="app-header">
+    <ul nz-menu class="app-menu-right" [nzMode]="'horizontal'" style="line-height: 56px">
+      <li nz-menu-item (click)="isCollapsed = !isCollapsed">
+        <a>
+          <i nz-icon type="bars" class="nav-icon"></i>
+        </a>
+      </li>
+    </ul>
+
+    <div class="app-title" *ngIf="!isMobile; else nAPP">
+      <a routerLink="/" (click)="messageIconSelected = false;">nAPPozord</a>
+    </div>
+
+    <ng-template #nAPP>
+      <div class="app-title">
+        <a routerLink="/" (click)="messageIconSelected = false;">nAPP</a>
+      </div>
+    </ng-template>
+
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="this.goToLine($event, validateForm.value)">
+      <nz-form-item class="app-title" style="padding-left: 88px; padding-top: 8px;" *ngIf="!isMobile">
+        <nz-input-group nzSize="large" style="width: 200%" [nzSuffix]="suffixButton" *ngIf="this.authService.isLoggedIn();">
+          <nz-form-control>
+            <input type="text" nz-input
+                   formControlName="line"
+                   placeholder="Search Line..."
+                   nzSize="large"
+                   (input)="this.authService.OnInputFilteredLinesForSearch($event.target?.value)"
+                   [nzAutocomplete]="auto"/>
+            <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto></nz-autocomplete>
+          </nz-form-control>
+        </nz-input-group>
+      </nz-form-item>
+    </form>
+
+    <ng-template #suffixButton>
+      <button nz-button nzType="primary" nzSize="large" style="width: 125%">
+        <i nz-icon type="search" theme="outline" class="nav-icon2" style="margin-left: 19%"></i>
+      </button>
+    </ng-template>
+
+    <div *ngIf="this.authService.isLoggedIn(); else notLoggedIn">
+      <ul nz-menu class="app-menu" [nzMode]="'horizontal'" style="line-height: 56px">
+        <li nz-menu-item nz-popover nzContent="Make a new reservation" nzPlacement="bottom" (click)="this.router.navigate(['newreservation'])">
+          <i nz-icon nzType="plus-circle" nzTheme="outline" class="nav-icon" style="padding-left: 10px"></i>
+        </li>
+        <li nz-menu-item nz-popover nzContent="Notifications" nzPlacement="bottom">
+          <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+            <a nz-dropdown>
+              <div *ngIf="this.currentUser !== undefined && this.currentUser.messages.length > 0; else emptyMessages" (click)="this.resetNewNotificationCount()">
+                <nz-badge [nzCount]="this.authService.updatesCountObs" nzOverflowCount="9">
+                  <a class="head-example"></a>
+                  <i nz-icon type="message" class="nav-icon" style="padding-left: 10px"></i>
+                </nz-badge>
+              </div>
+              <ng-template #emptyMessages>
+                <i nz-icon type="message" class="nav-icon" style="padding-left: 10px"></i>
+              </ng-template>
+            </a>
+            <ul nz-menu class="profile-dropdown-menu">
+              <li nz-menu-item class="dropdown-item">
+                <div *ngIf="this.currentUser.messages.length > 0; else emptyMessagesDropdown">
+                  <nz-list [nzDataSource]="this.currentUser.messages.reverse().slice(0, 9)" [nzRenderItem]="notifications" [nzItemLayout]="'horizontal'">
+                    <ng-template #notifications let-notif>
+                      <nz-list-item [nzExtra]="Message">
+                        <ng-template #Message>
+                          <div *ngIf="!notif.read; else Message2">
+                            <nz-badge nzStatus="processing" nzText="{{ notif.mess }}"></nz-badge>
+                          </div>
+                        </ng-template>
+                        <ng-template #Message2>
+                          <nz-badge nzStatus="default" nzText="{{ notif.mess }}"></nz-badge>
+                        </ng-template>
+                      </nz-list-item>
+                    </ng-template>
+                  </nz-list>
+                </div>
+                <ng-template #emptyMessagesDropdown>
+                  <div class="user-full-name-info">
+                    No notifications
+                  </div>
+                </ng-template>
+              </li>
+            </ul>
+          </nz-dropdown>
+        </li>
+        <li nz-menu-item (click)="this.messageIconSelected = false;">
+          <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'" (click)="this.messageIconSelected = false;">
+            <a nz-dropdown (click)="this.messageIconSelected = false;">
+              <nz-avatar *ngIf="this.getCurrentUser().imageUrl === null; else gotIMG"
+                         [nzText]="this.getCurrentUser().name[0]"
+                         [ngStyle]="{'background-color': this.getAvatarColor(this.getCurrentUser().name)}">
+              </nz-avatar>
+              <ng-template #gotIMG>
+                <nz-avatar [nzSrc]="getCurrentUser().imageUrl">
+                </nz-avatar>
+              </ng-template>
+            </a>
+            <ul nz-menu class="profile-dropdown-menu" style="top: 18px">
+              <li nz-menu-item class="dropdown-item" nzDisabled>
+                <div class="user-full-name-info">
+                  {{this.getCurrentUser().name}}
+                </div>
+                <div class="user-full-info">
+                  {{this.getCurrentUser().email}}
+                </div>
+              </li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item class="dropdown-item">
+                <a routerLink="/profile" style="text-decoration: none">
+                  <i nz-icon type="user" class="nav-icon2"></i>Profile
+                </a>
+              </li>
+              <li nz-menu-item class="dropdown-item" *ngIf="this.getCurrentUser().role === 'ADMIN' || this.getCurrentUser().role === 'SYS_ADMIN'">
+                <a routerLink="signup" style="text-decoration: none">
+                  <i nz-icon type="user-add" class="nav-icon2"></i>Sign up a new User
+                </a>
+              </li>
+              <li nz-menu-item class="dropdown-item">
+                <a (click)="this.logout()" routerLink="/" style="text-decoration: none">
+                  <i nz-icon type="logout" class="nav-icon2"></i>Logout
+                </a>
+              </li>
+            </ul>
+          </nz-dropdown>
+        </li>
+      </ul>
+    </div>
+
+    <ng-template #notLoggedIn>
+      <ul nz-menu class="app-menu" [nzMode]="'horizontal'" style="line-height: 56px">
+        <li nz-menu-item style="padding: 0 50px">
+          <a routerLink="login" class="user-full-name-info" style="text-decoration: none">
+            <i nz-icon type="login" class="nav-icon2"></i>Login
+          </a>
+        </li>
+      </ul>
+    </ng-template>
+  </nz-header>
+
+  <nz-layout style="margin-top: 56px">
+      <nz-sider [(nzCollapsed)]="isCollapsed" [nzWidth]="this.getSiderWidth()" *ngIf="!(isCollapsed && isMobile)">
+        <ul nz-menu [nzMode]="'inline'" style="height: 100%;" [nzInlineCollapsed]="isCollapsed">
+          <li nz-menu-item *ngIf="isMobile" style="margin-top: 8px;">
+            <a>
+              <span><i nz-icon class="nav-icon2" type="search"></i><span class="user-full-name-info">
+                <input type="text" nz-input
+                       placeholder="Search Line..."
+                       nzSize="large"
+                       class="input-search"
+                       (input)="this.authService.OnInputFilteredLinesForSearch($event.target?.value)"
+                       [nzAutocomplete]="auto"/>
+                <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto></nz-autocomplete>
+              </span></span>
+            </a>
+          </li>
+          <li nz-menu-divider *ngIf="isMobile"></li>
+          <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;">
+            <a routerLink="/" style="text-decoration: none">
+              <span><i nz-icon class="nav-icon2" type="home"></i><span class="user-full-name-info">Home</span></span>
+            </a>
+          </li>
+          <li nz-menu-divider style="margin: 0;"></li>
+          <a *ngIf="!this.authService.isLoggedIn(); else loggedTpl"></a>
+          <ng-template #loggedTpl>
+            <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;">
+              <a routerLink="/children" style="text-decoration: none">
+                <span><i nz-icon class="nav-icon2" type="smile"></i><span class="user-full-name-info">Your Children</span></span>
+              </a>
+            </li>
+            <li nz-menu-divider style="margin: 0;"></li>
+            <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;">
+              <a routerLink="/turns" style="text-decoration: none">
+                <span><i nz-icon class="nav-icon2" type="schedule"></i><span class="user-full-name-info">Schedule Driver Turns</span></span>
+              </a>
+            </li>
+            <li nz-menu-divider style="margin: 0;"></li>
+            <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;" *ngIf="this.getCurrentUser().role !== 'USER'">
+              <a routerLink="/manageturns" style="text-decoration: none">
+                <span><i nz-icon class="nav-icon2" type="tool"></i>
+                  <span class="user-full-name-info">Manage Line Turns</span></span>
+              </a>
+            </li>
+            <li nz-menu-divider style="margin: 0;"></li>
+            <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;" *ngIf="this.getCurrentUser().role !== 'USER'">
+              <a routerLink="/listallusers" style="text-decoration: none">
+                <span><i nz-icon class="nav-icon2" type="team"></i><span class="user-full-name-info">See all Parents</span></span>
+              </a>
+            </li>
+            <li nz-menu-divider style="margin: 0;"></li>
+            <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;">
+              <a routerLink="/lines" style="text-decoration: none">
+                <span><i nz-icon class="nav-icon2" type="global"></i><span class="user-full-name-info">See all Lines</span></span>
+              </a>
+            </li>
+            <li nz-menu-divider style="margin: 0;"></li>
+            <li nz-submenu style="margin-top: 8px; margin-bottom: 4px">
+              <span title><i nz-icon type="setting" class="nav-icon2"></i><span class="user-full-name-info">Options</span></span>
+              <ul>
+                <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;" *ngIf="this.getCurrentUser().role !== 'USER'">
+                  <a [routerLink]="['/profile', { select: 0 }]" style="text-decoration: none">
+                    <span><i nz-icon class="nav-icon2" type="swap"></i><span class="username-info">Manage Lines</span></span>
+                  </a>
+                </li>
+                <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;">
+                  <a [routerLink]="['/profile', { select: 1 }]" style="text-decoration: none">
+                    <span><i nz-icon class="nav-icon2" type="meh"></i><span class="username-info">Edit Children</span></span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li nz-menu-divider style="margin: 0;"></li>
+          </ng-template>
+        </ul>
+      </nz-sider>
+
+    <nz-layout class="app-content" [ngStyle]="{'padding-right': this.centerContent() + '%'}">
+      <app-alert></app-alert>
+      <router-outlet></router-outlet>
+    </nz-layout>
+
+  </nz-layout>
+</nz-layout>
+

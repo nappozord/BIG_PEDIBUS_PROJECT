@@ -1,0 +1,29 @@
+<div>
+  <nz-list [nzDataSource]="allChildren" [nzRenderItem]="children" [nzItemLayout]="'horizontal'" style="padding-top: 2%">
+    <ng-template #children let-child>
+      <nz-list-item>
+        <div class="user-avatar">
+          <nz-avatar class="user-avatar-circle"
+                     (click)="goToChild(child)"
+                     [ngStyle]="{'background-color': this.getAvatarColor(this.child.childName), 'line-height': 'initial'}"
+                     nzIcon="smile"
+                     [nzSize]="100">
+          </nz-avatar>
+        </div>
+        <div class="user-summary">
+          <a (click)="goToChild(child)" class="full-name">
+            {{ child.childName }}
+          </a>
+          <div class="username">
+            <a *ngIf="hasNotDefaultYet(child); else subscribed" (click)="this.router.navigate(['/lines', { child: child.childName }])">
+              Subscribe to a new line now!
+            </a>
+            <ng-template #subscribed>
+              Subscribed to: {{ child.lineDefault.name }}
+            </ng-template>
+          </div>
+        </div>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</div>

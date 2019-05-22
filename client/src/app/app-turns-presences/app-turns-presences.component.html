@@ -1,0 +1,52 @@
+<div class="profile" style="margin-top: 20px">
+  <div style="float:left; width: 50%; min-width: 400px; padding-bottom: 20px">
+
+    <div style="float: left; z-index: 0; position: relative">
+      <div class="user-avatar">
+        <nz-avatar class="user-avatar-circle"
+                   [ngStyle]="{'background-color': '#cdb962'}"
+                   nzIcon="tool"
+                   [nzSize]="60">
+        </nz-avatar>
+      </div>
+    </div>
+
+    <div class="user-summary"  style="padding-right: 20px;">
+      <div class="full-name">Manage Turns</div>
+    </div>
+
+    <div>
+      <div >
+        <nz-badge [nzColor]="'lime'" [nzText]="'GOING'"></nz-badge>
+      </div>
+      <div>
+        <nz-badge [nzColor]="'rgba(17,169,201,0.83)'" [nzText]="'RETURN'"></nz-badge>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div style="margin-top: 4%;">
+    <nz-calendar (nzSelectChange)="setConfirmedTurns($event, modalTpl)">
+      <ul *nzDateCell="let date" class="events">
+        <div *ngFor="let date2 of this.currentTurns">
+          <div *ngIf="this.getCellDate(date, date2);">
+            <nz-badge [nzColor]="getColor(date2)" [nzText]="getNames(date2)"></nz-badge>
+          </div>
+        </div>
+      </ul>
+    </nz-calendar>
+  </div>
+</div>
+
+<ng-template #modalTpl>
+  <app-modal-turn-presences *ngIf="onModal"
+                  [turns]="this.turns"
+                  [date]="this.date"
+                  [currentUser]="this.currentUser"
+                  [closed]="this.closed"
+                  (turnGotChanges)="turnChange($event)"
+                  (closeModal)="closeModal()">
+  </app-modal-turn-presences>
+</ng-template>

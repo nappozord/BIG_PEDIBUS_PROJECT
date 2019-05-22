@@ -1,0 +1,32 @@
+<div>
+  <nz-list [nzDataSource]="allLines" [nzRenderItem]="lines" [nzItemLayout]="'horizontal'">
+    <ng-template #lines let-line>
+      <nz-list-item>
+        <div class="line-avatar">
+          <i nz-icon nz-popover nzContent="You are ADMIN of this line" nzPlacement="bottom" nzType="fire" nzTheme="fill" style="float: right;" *ngIf="amAdmin(line)"></i>
+          <nz-avatar class="line-avatar-circle"
+                   (click)="goToLine(line)"
+                   [nzText]="line.id"
+                   [ngStyle]="{'background-color': '#cdb962'}"
+                   [nzSize]="100"></nz-avatar>
+        </div>
+        <div class="line-summary">
+          <div class="full-name">
+            <a (click)="goToLine(line)" class="full-name">
+              {{ line.name }}
+              <i *ngIf="this.currentChildName !== undefined" nz-icon nzType="pushpin" nzTheme="twotone" nzTwotoneColor="#CD565F" style="padding-left: 1%; font-size: 30px"
+                 nz-popover nzContent="Subscribe {{ this.currentChildName }} to this line" nzPlacement="right"  (click)="goToLineSub(line)"></i>
+            </a>
+          </div>
+          <div class="linedetail">
+            <nz-steps nzProgressDot [nzCurrent]="1">
+              <nz-step nzTitle="FROM" [nzDescription]="getFrom(line)"></nz-step>
+              <nz-step nzTitle="TO" [nzDescription]="getDest(line)"></nz-step>
+            </nz-steps>
+          </div>
+        </div>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</div>
+

@@ -1,0 +1,156 @@
+.app-title {
+  float: left;
+}
+
+.app-title a {
+  color: #A55034;
+  text-decoration: none;
+  line-height: 56px;
+  font-size: 21px;
+  display: inline-block;
+}
+
+.app-title a:hover {
+  text-decoration: none;
+}
+
+.app-header {
+  position: fixed;
+  width: 100%;
+  box-shadow: 0 2px 8px #f0f1f2;
+  z-index: 10;
+  padding: 0;
+}
+
+.app-menu-right {
+  float: left;
+}
+
+.app-menu-right > li {
+  padding: 0 20px;
+}
+
+.app-menu-right > li > a {
+  padding: 0 20px;
+  margin: 0 -20px;
+}
+
+.app-menu-right > li > a > i {
+  margin-right: 0 !important;
+}
+
+.app-menu {
+  float: right;
+}
+
+.app-menu > li {
+  padding: 0 20px;
+}
+
+.app-menu > li > a {
+  padding: 0 20px;
+  margin: 0 -20px;
+}
+
+.app-menu > li > a > i {
+  margin-right: 0 !important;
+}
+
+.profile-dropdown-menu {
+  min-width: 180px;
+}
+
+.user-full-name-info {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.username-info {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dropdown-item {
+  padding: 10px 12px;
+}
+
+.dropdown-item a {
+  padding: 10px 12px;
+  margin: -10px -12px;
+}
+
+.dropdown-item > a:hover {
+  color: #A55034;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  color: #212529;
+  text-decoration: none;
+  background-color: rgba(255, 27, 0, 0.02);
+}
+
+.nav-icon {
+   font-size: 20px;
+ }
+
+.nav-icon2 {
+  font-size: 20px;
+  vertical-align: 0;
+  padding-right: 10px;
+}
+
+.poll-icon {
+  margin-top: -4px;
+}
+
+@media (max-width: 768px) {
+  .app-title a {
+    font-size: 20px;
+  }
+
+  .app-menu > li {
+    padding: 0 15px;
+  }
+
+  .app-menu > li > a {
+    padding: 0 15px;
+    margin: 0 -15px;
+  }
+}
+
+.app-content {
+  padding-left: 3%;
+}
+
+.input-search {
+  width:100%;
+  border: none;
+}
+
+.search-colors :active {
+  background-color: #e6ddd8;
+}
+
+.custom-menu-item :active {
+  background-color: #FFFFFF;
+}
+
+.custom-menu-item :hover {
+  background-color: #FFFFFF;
+}
+
+.custom-menu-item :focus {
+   background-color: #FFFFFF;
+ }
+
+.custom-menu-item :focus-within {
+  background-color: #FFFFFF;
+}
+
+.custom-menu-item :visited {
+  background-color: #FFFFFF;
+}
+
+.head-example {
+  position: relative;
+}

@@ -1,0 +1,98 @@
+<div class="profile" style="margin-top: 20px">
+  <div style="float:left; width: 50%; min-width: 300px; padding-bottom: 20px">
+
+    <div style="float: left; z-index: 0; position: relative">
+      <div class="user-avatar">
+        <nz-avatar class="user-avatar-circle"
+           [ngStyle]="{'background-color': this.authService.getAvatarColor(this.currentChild.childName)}"
+           nzIcon="smile"
+           [nzSize]="60">
+        </nz-avatar>
+      </div>
+    </div>
+
+    <div class="info" *ngIf="!currentChild.lineDefault">
+      <a class="info-icon" style="font-size: 30px;">
+        <i nz-icon nzType="info-circle" nzTheme="twotone" *ngIf="!this.currentChild.lineDefault"
+        nz-popover [nzContent]="'Click here to subscribe ' + currentChildName + ' to a line!'"
+        nzPlacement="right" (click)="this.router.navigate(['/lines', { child: currentChildName }])"></i>
+      </a>
+    </div>
+
+    <div class="user-summary">
+      <div class="full-name">{{currentChild.childName}}
+      </div>
+    </div>
+
+  </div>
+  <div style="margin-top: 4%;">
+    <nz-calendar>
+      <ul *nzDateCell="let date" class="events">
+
+        <div *ngIf="this.currentReservationHacks.length !== 0;">
+          <div *ngFor="let date2 of this.currentReservationHacks">
+            <div *ngIf="this.getCellDate(date, date2);">
+              <li>
+                <a class="stop" (click)="reservationUpdate(date, 0, modalTpl, date2.stopLine.id, date2.id, date2.status)" *ngIf="going_return(date2)">
+                  <div *ngIf="isReservationDeleted(date2); else deleteGoing">
+                    <nz-badge [nzColor]="'rgba(17,169,201,0.83)'" [nzText]="getStopsNotDefault(date2)"></nz-badge>
+                  </div>
+                  <ng-template #deleteGoing>
+                    <nz-badge [nzStatus]="'warning'" [nzText]="'No reservation'"></nz-badge>
+                  </ng-template>
+                </a>
+              </li>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <li *ngIf="currentChild.lineDefault">
+            <a class="stop" (click)="reservationUpdate(date, 0, modalTpl, this.currentChild.defaultGoing.id, null, null)" *ngIf="check(date, 'GOING')">
+              <nz-badge [nzColor]="'#108ee9'" [nzText]="this.currentChild.defaultGoing.stop.name"></nz-badge>
+            </a>
+          </li>
+        </div>
+
+        <div *ngIf="this.currentReservationHacks.length !== 0;">
+          <div *ngFor="let date2 of this.currentReservationHacks">
+            <div *ngIf="this.getCellDate(date, date2);">
+              <li>
+                <a class="stop" (click)="reservationUpdate(date, 1, modalTpl, date2.stopLine.id, date2.id, date2.status)" *ngIf="!going_return(date2)">
+                  <div *ngIf="isReservationDeleted(date2); else deleteReturn">
+                    <nz-badge [nzColor]="'rgba(17,169,201,0.83)'" [nzText]="getStopsNotDefault(date2)"></nz-badge>
+                  </div>
+                  <ng-template #deleteReturn>
+                    <nz-badge [nzStatus]="'warning'" [nzText]="'No reservation'"></nz-badge>
+                  </ng-template>
+                </a>
+              </li>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <li *ngIf="currentChild.lineDefault">
+            <a class="stop" (click)="reservationUpdate(date, 1, modalTpl, this.currentChild.defaultReturn.id, null, null)" *ngIf="check(date, 'RETURN')">
+              <nz-badge [nzColor]="'#108ee9'" [nzText]="this.currentChild.defaultReturn.stop.name"></nz-badge>
+            </a>
+          </li>
+        </div>
+
+      </ul>
+    </nz-calendar>
+  </div>
+</div>
+
+<ng-template #modalTpl>
+  <app-modal-ref *ngIf="onModal" [child]="this.currentChild"
+                 [id]="this.id_"
+                 [date]="this.date_"
+                 [idStopLine]="this.idStopLine"
+                 [id_res]="this.id_res"
+                 [status_old]="this.status_old"
+                 (reservationGotNew)="reservationAdd($event)"
+                 (reservationGotChanges)="reservationChange($event)">
+  </app-modal-ref>
+</ng-template>
+

@@ -1,0 +1,99 @@
+<nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="list" *ngIf="changeStatus()">
+
+  <nz-tab [nzTitle]="'Going'">
+    <nz-list [nzDataSource]="currentUser.lines" [nzRenderItem]="lines" [nzItemLayout]="'horizontal'">
+      <ng-template #lines let-line>
+        <nz-list-item>
+          <div class="line-summary">
+            <div class="full-name" (click)="selectUsers(line, 0)">
+              <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to expand">
+                <div class="line-avatar">
+                  <nz-avatar class="line-avatar-circle"
+                             [nzText]="line.id"
+                             [ngStyle]="{'background-color': '#cdb962'}"
+                             [nzSize]="40"></nz-avatar>
+                </div>
+                {{ line.name }}
+              </a>
+            </div>
+            <div class="linedetail">
+              <nz-steps  nzProgressDot [nzCurrent]="1">
+                <nz-step nzTitle="FROM" [nzDescription]="getFrom(line)"></nz-step>
+                <nz-step nzTitle="TO" [nzDescription]="getDest(line)"></nz-step>
+              </nz-steps>
+              <div *ngIf="edit !== line.id; else user"></div>
+            </div>
+          </div>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+
+  </nz-tab>
+
+  <nz-tab [nzTitle]="'Return'">
+    <nz-list [nzDataSource]="currentUser.lines" [nzRenderItem]="lines_r" [nzItemLayout]="'horizontal'">
+      <ng-template #lines_r let-line>
+        <nz-list-item>
+          <div class="line-summary">
+            <div class="full-name" (click)="selectUsers(line, 1)">
+              <a class="full-name" nz-popover nzPlacement="top" nzContent="Click to expand" >
+                <div class="line-avatar">
+                  <nz-avatar class="line-avatar-circle"
+                             [nzText]="line.id"
+                             [ngStyle]="{'background-color': '#cdb962'}"
+                             [nzSize]="40"></nz-avatar>
+                </div>
+                {{ line.name }}
+              </a>
+            </div>
+            <div class="linedetail">
+              <nz-steps nzProgressDot [nzCurrent]="1">
+                <nz-step nzTitle="FROM" [nzDescription]="getDest(line)"></nz-step>
+                <nz-step nzTitle="TO" [nzDescription]="getFrom(line)"></nz-step>
+              </nz-steps>
+              <div *ngIf="edit !== line.id; else user"></div>
+            </div>
+          </div>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+  </nz-tab>
+
+</nz-tabset>
+
+<ng-template #user>
+  <nz-list [nzDataSource]="this.users" [nzRenderItem]="users_turns" [nzItemLayout]="'horizontal'">
+    <ng-template #users_turns let-user>
+      <nz-list-item>
+        <div class="line-summary2">
+          <div class="full-name2">
+            <a class="full-name2" (click)="setConfirmed(user)">
+              <div class="line-avatar2">
+                <nz-avatar class="user-avatar-circle" *ngIf="user.status === null; else confirmed"
+                           [ngStyle]="{'background-color': this.getAvatarColor(user.user), 'line-height': 'initial'}"
+                           nzIcon="user"
+                           [nzSize]="20">
+                </nz-avatar>
+                <ng-template #confirmed>
+                  <nz-avatar class="user-avatar-circle"
+                             [ngStyle]="{'background-color': '#4a8666', 'line-height': 'initial'}"
+                             nzIcon="check"
+                             [nzSize]="20">
+                  </nz-avatar>
+                </ng-template>
+              </div>
+              <a style="padding-left: 20px;">
+                {{ user.user }}
+              </a>
+            </a>
+          </div>
+          <div style="padding-left: 40px">{{getStopTurn(user)}}</div>
+          <div style="width: 92%; padding-left: 40px">
+            <nz-slider nzRange [nzTipFormatter]="null" *ngIf="getSlide(user)" [ngModel]="value" [nzMax]="this.selectedLine.length - 1"
+                       nzDisabled=true></nz-slider>
+          </div>
+        </div>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</ng-template>

@@ -1,0 +1,149 @@
+<div class="signup-container">
+
+  <div *ngIf="check === 0; else going">
+          <h1 class="page-title">Subscribe to a new line</h1>
+          <div class="signup-content">
+            <div [ngStyle]="{ width: '100%', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+              <nz-calendar
+                nzCard
+                (nzSelectChange)="onValueChange($event)"
+                (nzPanelChange)="onPanelChange($event)"
+              ></nz-calendar>
+            </div>
+            <nz-divider></nz-divider>
+            <form nz-form class="signup-form" [formGroup]="validateForm" (ngSubmit)="submitFormGoing($event, validateForm.value)">
+              <nz-form-item>
+                <nz-form-control nzHasFeedback>
+                  <input nz-input
+                         formControlName="name"
+                         placeholder="Child name"
+                         nzSize="large"
+                         (input)="this.authService.OnInputFilteredChildren($event.target?.value)"
+                         [nzAutocomplete]="auto"/>
+                  <nz-autocomplete [nzDataSource]="this.authService.filteredOptions_c" #auto></nz-autocomplete>
+                  <nz-form-explain
+                    *ngIf="validateForm.get('name')?.dirty &&
+                  validateForm.get('name')?.errors">
+                    <ng-container *ngIf="validateForm.get('name')?.hasError('duplicated')">
+                      This is not one of your children!
+                    </ng-container>
+                    <ng-container *ngIf="validateForm.get('name')?.hasError('required')">
+                      Please input your child's name!
+                    </ng-container>
+                  </nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control nzHasFeedback>
+                  <input nz-input
+                         formControlName="line"
+                         placeholder="Line"
+                         nzSize="large"
+                         (input)="this.authService.OnInputFilteredLinesForSearch($event.target?.value)"
+                         [nzAutocomplete]="auto2"/>
+                  <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto2></nz-autocomplete>
+                  <nz-form-explain
+                    *ngIf="(validateForm.get('line')?.dirty &&
+              validateForm.get('line')?.errors) ||
+              validateForm.get('line')?.pending">
+                    <ng-container *ngIf="validateForm.get('line')?.hasError('duplicated')">
+                      This is not a registered line!
+                    </ng-container>
+                    <ng-container *ngIf="validateForm.get('line')?.hasError('required')">
+                      Please input a valid line!
+                    </ng-container>
+                  </nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <label nz-checkbox (click)="changeCheck()">Start and arrival stations are the same</label>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <button nz-button
+                          class="signup-form-button"
+                          nzType="primary"
+                          nzSize="large"
+                          [disabled]="!validateForm.valid">
+                    Go and choose the stop
+                  </button>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </div>
+        </div>
+
+  <ng-template #going>
+    <div *ngIf="check === 1; else return">
+
+      <h1 class="page-title">Choose a Start Stop</h1>
+
+      <nz-table nzBordered [nzHideOnSinglePage]="true" style="width: 100%" nzPageSize="4" [nzData]="counter">
+        <thead>
+        <tr>
+          <th nzWidth="60%">STOPS GOING</th>
+          <th nzWidth="20%">TIME</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of this.stopsList_going">
+          <td>
+            <div style="font-size: 20px">
+              {{ data.stop.name }}
+            </div>
+          </td>
+          <td>
+            <div style="font-size: 20px">
+              {{ data.hour }}
+            </div>
+          </td>
+          <td>
+            <a nz-popconfirm nzTitle="Confirm reservation?" nzOkText="YES"
+               nzCancelText="NO" (nzOnConfirm)="sendConfirm(data, 'GOING')">
+              <i nz-icon nzType="check-circle" nzTheme="twotone" [nzTwotoneColor]="'#52c41a'" class="nav-icon2"></i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </ng-template>
+
+  <ng-template #return>
+
+    <h1 class="page-title">Choose a Destination Stop</h1>
+
+      <nz-table nzBordered [nzHideOnSinglePage]="true" style="width: 100%" nzPageSize="4" [nzData]="counter">
+        <thead>
+        <tr>
+          <th nzWidth="60%">STOPS GOING</th>
+          <th nzWidth="20%">TIME</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let data of this.stopsList_return">
+          <td>
+            <div style="font-size: 20px">
+              {{ data.stop.name }}
+            </div>
+          </td>
+          <td>
+            <div style="font-size: 20px">
+              {{ data.hour }}
+            </div>
+          </td>
+          <td>
+            <a nz-popconfirm nzTitle="Confirm reservation?" nzOkText="YES"
+                            nzCancelText="NO" (nzOnConfirm)="sendConfirm(data, 'RETURN')">
+              <i nz-icon nzType="check-circle" nzTheme="twotone" [nzTwotoneColor]="'#52c41a'" class="nav-icon2"></i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+
+  </ng-template>
+
+</div>

@@ -1,0 +1,85 @@
+<nz-spin [nzSpinning]="this.isloading" nzTip="Sending confirmation Email" nzSize="large" nzDelay=100>
+  <div class="signup-container">
+    <h1 class="page-title">Sign up a new User</h1>
+    <div class="signup-content">
+      <form nz-form class="signup-form" [formGroup]="validateForm" (ngSubmit)="submitForm($event, validateForm.value)">
+        <nz-form-item>
+          <nz-form-control nzHasFeedback>
+            <input nz-input
+                   formControlName="email"
+                   placeholder="Email"
+                   nzSize="large"
+                   type="email"/>
+            <nz-form-explain
+              *ngIf="validateForm.get('email')?.dirty &&
+              validateForm.get('email')?.errors">
+              <ng-container *ngIf="validateForm.get('email')?.hasError('email')">
+                The input is not valid E-mail!
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('email')?.hasError('required')">
+                Please input your E-mail!
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-select class="signup-form-button"
+                       nzPlaceHolder="Select a role"
+                       nzSize="large"
+                       formControlName="role">
+              <nz-option nzCustomContent nzLabel="ADMIN" nzValue="ADMIN">
+                <i nz-icon type="solution"></i> ADMIN
+              </nz-option>
+              <nz-option nzCustomContent nzLabel="USER" nzValue="USER">
+                <i nz-icon type="user"></i> USER
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+          <nz-form-explain
+            *ngIf="validateForm.get('role')?.dirty &&
+            validateForm.get('role')?.errors">
+            <ng-container *ngIf="validateForm.get('role')?.hasError('required')">
+              Please select a role!
+            </ng-container>
+          </nz-form-explain>
+        </nz-form-item>
+        <nz-form-item *ngIf="isAdmin()">
+          <nz-form-control nzHasFeedback>
+            <input nz-input
+                   formControlName="line"
+                   placeholder="Line Admin"
+                   nzSize="large"/>
+            <nz-form-explain
+              *ngIf="(validateForm.get('name')?.dirty &&
+              validateForm.get('name')?.errors) ||
+              validateForm.get('name')?.pending"
+            >
+              <ng-container *ngIf="validateForm.get('name')?.hasError('required')">
+                Please input a valid name!
+              </ng-container>
+              <ng-container *ngIf="validateForm.get('userName')?.hasError('duplicated')">
+                The username is redundant!
+              </ng-container>
+            </nz-form-explain>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button
+                    class="signup-form-button"
+                    nzType="primary"
+                    nzSize="large"
+                    [disabled]="!validateForm.valid">
+              Sign Up
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+    <div *ngIf="hasError" style="text-align: left">
+      <nz-alert nzType="error" nzMessage="Error" nzDescription="You can't make this changes!" nzCloseable nzShowIcon (nzOnClose)="hasError = false;">
+      </nz-alert>
+    </div>
+  </div>
+</nz-spin>

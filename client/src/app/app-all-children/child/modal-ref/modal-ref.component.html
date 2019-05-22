@@ -1,0 +1,101 @@
+<div class="profile">
+  <div class="line-profile">
+    <div class="line-details">
+      <div>
+        <nz-avatar
+                   [ngStyle]="{'background-color': '#cdb962', 'line-height': 'initial'}"
+                   [nzText]="currentLine.id"
+                   [nzSize]="0"></nz-avatar>
+      </div>
+      <div class="line-summary">
+        <div class="full-name">{{currentLine.name}}</div>
+
+        <div class="select-name" style="padding-top: 6%" *ngIf="disabled">
+          Select a going station
+        </div>
+
+        <div class="select-name" style="padding-top: 6%" *ngIf="!disabled">
+          Select a return station
+        </div>
+
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" class="list" [nzSelectedIndex]="selectIndex">
+          <nz-tab [nzTitle]="'Going'" [nzDisabled]="!isDisabled()">
+            <nz-table #StopsTable_going nzBordered [nzData]="this.stopsList_going" [nzHideOnSinglePage]="true" nzPageSize="6">
+              <thead>
+              <tr>
+                <th nzWidth="60%">STOPS GOING</th>
+                <th nzWidth="20%">TIME</th>
+                <th>
+
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of StopsTable_going.data" class="editable-row">
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.stop.name }}
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.hour }}
+                  </div>
+                </td>
+                <td>
+                  <a (click)="setStopReservation(data)" *ngIf="checkIfDeleted(data); else deleteStopLine_g">
+                    <i nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" style="font-size: 25px; padding-left: 3%" [nzTwotoneColor]="'#52c41a'"></i>
+                  </a>
+                  <ng-template #deleteStopLine_g>
+                    <a (click)="deleteStopReservation(data)">
+                      <i nz-icon [nzType]="'close-circle'" [nzTheme]="'twotone'" style="font-size: 25px; padding-left: 3%" [nzTwotoneColor]="'red'"></i>
+                    </a>
+                  </ng-template>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+          </nz-tab>
+
+          <nz-tab [nzTitle]="'Return'" [nzDisabled]="isDisabled()">
+            <nz-table #StopsTable_return nzBordered [nzData]="this.stopsList_return" [nzHideOnSinglePage]="true" nzPageSize="6">
+              <thead>
+              <tr>
+                <th nzWidth="60%">STOPS RETURN</th>
+                <th nzWidth="20%">TIME</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of StopsTable_return.data" class="editable-row">
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.stop.name }}
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size: 20px">
+                    {{ data.hour }}
+                  </div>
+                </td>
+                <td>
+                  <a (click)="setStopReservation(data)" *ngIf="checkIfDeleted(data); else deleteStopLine_r">
+                    <i nz-icon [nzType]="'check-circle'" [nzTheme]="'twotone'" style="font-size: 25px; padding-left: 3%" [nzTwotoneColor]="'#52c41a'"></i>
+                  </a>
+                  <ng-template #deleteStopLine_r>
+                    <a (click)="deleteStopReservation(data)">
+                      <i nz-icon [nzType]="'close-circle'" [nzTheme]="'twotone'" style="font-size: 25px; padding-left: 3%" [nzTwotoneColor]="'red'"></i>
+                    </a>
+                  </ng-template>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+          </nz-tab>
+
+        </nz-tabset>
+
+      </div>
+    </div>
+  </div>
+</div>

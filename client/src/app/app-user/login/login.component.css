@@ -1,0 +1,23 @@
+.login-container {
+  max-width: 320px;
+  margin: 0 auto;
+  margin: 0 auto;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.login-form-button {
+  vertical-align: 0;
+  width: 100%;
+}
+
+.login-form-button[disabled], .login-form-button[disabled]:hover, .login-form-button[disabled]:focus {
+  opacity: 0.6;
+  color: #fff;
+  background-color: rgba(165, 80, 52, 0.87);
+  border-color: rgba(165, 80, 52, 0.87);
+}
+
+.page-title {
+  margin-bottom: 1.5rem;
+}

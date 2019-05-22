@@ -1,0 +1,190 @@
+[
+  {
+    "name": "Dancing Larvae (NYC - Bronx)",
+    "users": [
+
+    ],
+    "stopLines_going": [
+      {
+        "stop": {
+          "name": "Pelham Bay Park"
+        },
+        "hour": "07:00"
+      },
+      {
+        "stop": {
+          "name": "Buhre Av"
+        },
+        "hour": "07:10"
+      },
+      {
+        "stop": {
+          "name": "Middletown Rd"
+        },
+        "hour": "07:20"
+      },
+      {
+        "stop": {
+          "name": "Zerega Av"
+        },
+        "hour": "07:30"
+      },
+      {
+        "stop": {
+          "name": "Castle Hill Av"
+        },
+        "hour": "07:40"
+      },
+      {
+        "stop": {
+          "name": "Brook Av"
+        },
+        "hour": "07:50"
+      },
+      {
+        "stop": {
+          "name": "Brooklyn Elementary School"
+        },
+        "hour": "08:00"
+      }
+    ],
+    "stopLines_return": [
+      {
+        "stop": {
+          "name": "Brooklyn Elementary School"
+        },
+        "hour": "16:00"
+      },
+      {
+        "stop": {
+          "name": "Brook Av"
+        },
+        "hour": "16:10"
+      },
+      {
+        "stop": {
+          "name": "Jackson Av"
+        },
+        "hour": "16:20"
+      },
+      {
+        "stop": {
+          "name": "Prospect Av"
+        },
+        "hour": "16:30"
+      },
+      {
+        "stop": {
+          "name": "Simpson St"
+        },
+        "hour": "16:40"
+      },
+      {
+        "stop": {
+          "name": "Buhre Av"
+        },
+        "hour": "16:50"
+      },
+      {
+        "stop": {
+          "name": "Pelham Bay Park"
+        },
+        "hour": "17:00"
+      }
+    ]
+  },
+  {
+    "name": "Buzzing Moths (NYC - Bronx)",
+    "users": [
+
+    ],
+    "stopLines_going": [
+      {
+        "stop": {
+          "name": "Wakefield St"
+        },
+        "hour": "07:00"
+      },
+      {
+        "stop": {
+          "name": "Nereid Av"
+        },
+        "hour": "07:10"
+      },
+      {
+        "stop": {
+          "name": "Gun Hill Rd"
+        },
+        "hour": "07:20"
+      },
+      {
+        "stop": {
+          "name": "Burke Av"
+        },
+        "hour": "07:30"
+      },
+      {
+        "stop": {
+          "name": "Freeman St"
+        },
+        "hour": "07:40"
+      },
+      {
+        "stop": {
+          "name": "Simpson St"
+        },
+        "hour": "07:50"
+      },
+      {
+        "stop": {
+          "name": "Bronx Elementary School"
+        },
+        "hour": "08:00"
+      }
+    ],
+    "stopLines_return": [
+      {
+        "stop": {
+          "name": "Bronx Elementary School"
+        },
+        "hour": "16:00"
+      },
+      {
+        "stop": {
+          "name": "Simpson St"
+        },
+        "hour": "16:10"
+      },
+      {
+        "stop": {
+          "name": "Freeman St"
+        },
+        "hour": "16:20"
+      },
+      {
+        "stop": {
+          "name": "Bronx Park East"
+        },
+        "hour": "16:30"
+      },
+      {
+        "stop": {
+          "name": "Pelham Pkwy"
+        },
+        "hour": "16:40"
+      },
+      {
+        "stop": {
+          "name": "Nereid Av"
+        },
+        "hour": "16:50"
+      },
+      {
+        "stop": {
+          "name": "Wakefield St"
+        },
+        "hour": "17:00"
+      }
+    ]
+  }
+]

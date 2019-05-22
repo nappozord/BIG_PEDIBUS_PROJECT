@@ -1,0 +1,178 @@
+<div class="profile">
+  <div class="user-profile">
+    <div class="user-details">
+      <div class="user-avatar">
+        <div *ngIf="currentUser.imageUrl; else noImageTemplate">
+          <nz-avatar class="user-avatar-circle" [nzSrc]="currentUser.imageUrl"></nz-avatar>
+        </div>
+        <ng-template #noImageTemplate>
+          <nz-avatar class="user-avatar-circle"
+                     [ngStyle]="{'background-color': this.getAvatarColor(this.currentUser.name), 'line-height': 'initial'}"
+                     nzIcon="user"
+                     [nzSize]="120"></nz-avatar>
+        </ng-template>
+      </div>
+      <div class="user-summary">
+        <div class="full-name">{{currentUser.name}}</div>
+        <div class="username">{{currentUser.email}}</div>
+        <div class="username">[{{currentUser.role}}]</div>
+
+        <nz-tabset [nzTabPosition]="'top'" [nzType]="'card'" style="width: 350px" class="list" nzSelectedIndex="{{this.route.snapshot.paramMap.get('select')}}">
+          <nz-tab [nzTitle]="'Lines'" *ngIf="this.currentUser.role !== 'USER'">
+
+            <nz-table #LinesTable nzBordered [nzData]="this.linesList" [nzHideOnSinglePage]="true" style="width: 350px" nzPageSize="4">
+              <thead>
+              <tr>
+                <th nzWidth="65%">ADMINISTERED LINES</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of LinesTable.data" class="editable-row">
+                <td>
+                  <div *ngIf="editId !== data.id; else editTpl">
+                    <div style="font-size: 20px">
+                      {{ data.name }}
+                    </div>
+                  </div>
+                  <ng-template #editTpl>
+                    <input type="text" nz-input [(ngModel)]="data.name"
+                           (input)="this.authService.OnInputFilteredLines($event.target?.value)"
+                           [nzAutocomplete]="auto"/>
+                    <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto></nz-autocomplete>
+                  </ng-template>
+                </td>
+                <td>
+                  <a (click)="startEdit(data.id, $event)" *ngIf="editId !== data.id; else editTpl2">
+                    <i nz-icon nzType="edit" style="font-size: 20px; padding-left: 5%; padding-bottom: 7%"></i>
+                  </a>
+                  <ng-template #editTpl2>
+                    <a (click)="finishEdit(data.id, $event)">
+                      <i nz-icon nzType="check" style="font-size: 20px; padding-left: 5%; padding-bottom: 7%"></i>
+                    </a>
+                  </ng-template>
+                  <a nz-popconfirm nzTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">
+                    <i nz-icon nzType="delete" style="font-size: 20px; padding-left: 40%; padding-bottom: 7%"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a (click)="addRow()">
+                    <i nz-icon nzType="plus" style="font-size: 20px; padding-left: 35%; padding-bottom: 7%"></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+            <div *ngIf="hasBeenEdited" style="margin-top: 10%;">
+              <button nz-button
+                      nzType="primary"
+                      class="login-form-button"
+                      style="margin-right: 10%; margin-left: 5%"
+                      nzSize="large"
+                      (click)="this.validateChanges();">
+                Save
+              </button>
+              <button nz-button
+                      style="margin-right: 5%;"
+                      class="login-form-button"
+                      (click)="this.cancelChanges();"
+                      nzSize="large">
+                Cancel
+              </button>
+            </div>
+            <div *ngIf="hasError" >
+              <nz-alert nzType="error" nzMessage="Error" nzDescription="You can't make this changes!" nzCloseable nzShowIcon style="padding-top: 20px" (nzOnClose)="hasError = false;">
+              </nz-alert>
+            </div>
+
+          </nz-tab>
+          <nz-tab [nzTitle]="'Children'">
+
+            <nz-table #ChildrenTable nzBordered [nzData]="this.childrenList" [nzHideOnSinglePage]="true" style="width: 350px" nzPageSize="4">
+              <thead>
+              <tr>
+                <th nzWidth="65%">YOUR CHILDREN</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of ChildrenTable.data" class="editable-row">
+                <td>
+                  <div *ngIf="editId_c !== data.id; else editTpl_c">
+                    <div style="font-size: 20px" *ngIf="this.childrenList[data.id].status !== 'deleted'; else deletedTpl_c">
+                      {{ data.name }}
+                    </div>
+                    <ng-template #deletedTpl_c>
+                      <div style="font-size: 20px; text-decoration: line-through;">
+                        {{ data.name }}
+                        DEAD
+                      </div>
+                    </ng-template>
+                  </div>
+                  <ng-template #editTpl_c>
+                    <input type="text" nz-input [(ngModel)]="data.name"/>
+                  </ng-template>
+                </td>
+                <td>
+                  <div *ngIf="this.childrenList[data.id].status !== 'deleted'; else deletedTpl_c2">
+                    <a (click)="startEdit_c(data.id, $event)" *ngIf="editId_c !== data.id; else editTpl2_c">
+                      <i nz-icon nzType="edit" style="font-size: 20px; padding-left: 5%; padding-bottom: 7%"></i>
+                    </a>
+                    <ng-template #editTpl2_c>
+                      <a (click)="finishEdit_c(data.id, $event)">
+                        <i nz-icon nzType="check" style="font-size: 20px; padding-left: 5%; padding-bottom: 7%"></i>
+                      </a>
+                    </ng-template>
+                    <a nz-popconfirm nzTitle="Sure to delete?" nzOkText="YES"
+                       nzCancelText="NO" (nzOnConfirm)="deleteRow_c(data.id)">
+                      <i nz-icon nzType="delete" style="font-size: 20px; padding-left: 40%; padding-bottom: 7%"></i>
+                    </a>
+                  </div>
+                  <ng-template #deletedTpl_c2>
+                    <a (click)="restoreRow_c(data.id)">
+                      <i nz-icon nzType="undo" style="font-size: 20px; padding-left: 35%; padding-bottom: 7%"></i>
+                    </a>
+                  </ng-template>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a (click)="addRow_c()">
+                    <i nz-icon nzType="plus" style="font-size: 20px; padding-left: 35%; padding-bottom: 7%"></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </nz-table>
+            <div *ngIf="hasBeenEdited_c" style="margin-top: 10%;">
+              <button nz-button
+                      nzType="primary"
+                      class="login-form-button"
+                      style="margin-right: 10%; margin-left: 5%"
+                      nzSize="large"
+                      (click)="this.validateChanges_c();">
+                Save
+              </button>
+              <button nz-button
+                      style="margin-right: 5%;"
+                      class="login-form-button"
+                      (click)="this.cancelChanges_c();"
+                      nzSize="large">
+                Cancel
+              </button>
+            </div>
+            <div *ngIf="hasError_c" >
+              <nz-alert nzType="error" nzMessage="Error" nzDescription="You can't make this changes!" nzCloseable nzShowIcon style="padding-top: 20px" (nzOnClose)="hasError_c = false;">
+              </nz-alert>
+            </div>
+          </nz-tab>
+        </nz-tabset>
+
+      </div>
+    </div>
+  </div>
+</div>

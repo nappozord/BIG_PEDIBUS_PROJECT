@@ -1,0 +1,55 @@
+<div style="padding-left: 1%;">
+  <nz-list [nzDataSource]="allUsers" [nzRenderItem]="users" [nzItemLayout]="'horizontal'" style="padding-top: 2%">
+    <ng-template #users let-user>
+      <nz-list-item>
+        <div class="user-summary">
+          <nz-list-item-meta
+            [nzTitle]="UserName"
+            [nzAvatar]="UserAvatar"
+            [nzDescription]="UserEmail"
+          >
+            <ng-template #UserName>
+              <a (click)="goToUser(user)" class="full-name">
+                {{ user.name }}
+              </a>
+            </ng-template>
+            <ng-template #UserAvatar>
+              <div *ngIf="user.imageUrl; else noImageTemplate">
+                <a (click)="goToUser(user)">
+                  <nz-avatar class="user-avatar-circle" [nzSrc]="user.imageUrl"></nz-avatar>
+                </a>
+              </div>
+              <ng-template #noImageTemplate>
+                <nz-avatar class="user-avatar-circle"
+                           (click)="goToUser(user)"
+                           [ngStyle]="{'background-color': this.getAvatarColor(this.user.name), 'line-height': 'initial'}"
+                           nzIcon="user"
+                           [nzSize]="100"></nz-avatar>
+              </ng-template>
+            </ng-template>
+            <ng-template #UserEmail>
+              <div class="username">
+                {{ user.email }}
+                <br>
+                [{{ user.role }}]
+                <nz-list [nzDataSource]="user.lines" [nzRenderItem]="lines" [nzItemLayout]="'horizontal'" *ngIf="user.role === 'ADMIN'">
+                  <ng-template #lines let-line>
+                    <nz-list-item>
+                      <nz-list-item-meta
+                        [nzTitle]="LineName"
+                      >
+                        <ng-template #LineName>
+                          {{ line.name }}
+                        </ng-template>
+                      </nz-list-item-meta>
+                    </nz-list-item>
+                  </ng-template>
+                </nz-list>
+              </div>
+            </ng-template>
+          </nz-list-item-meta>
+        </div>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+</div>

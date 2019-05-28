@@ -92,7 +92,10 @@ export class ModalTurnPresencesComponent implements OnInit {
     console.log(data);
     const date = new Date();
     date.setHours(0, 0, 0, 0);
-    if (date.toString() === this.date.toString()) {
+    console.log(date);
+    console.log(this.date);
+    // CHANGEX
+    if (date.getTime() === this.date.getTime()) {
       const date_ = new Date().getHours() + ':' + new Date().getMinutes();
       if (data.direction === 'GOING') {
         if (date_ > data.stopLine_start.hour) {
@@ -108,7 +111,8 @@ export class ModalTurnPresencesComponent implements OnInit {
         }
       }
     }
-    if (date.toString() < this.date.toString()) {
+    // CHANGEX
+    if (date.getTime() > this.date.getTime()) {
       return false;
     }
     return true;

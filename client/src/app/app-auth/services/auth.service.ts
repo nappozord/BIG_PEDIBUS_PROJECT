@@ -399,4 +399,9 @@ export class AuthService {
     return true;
   }
 
+  stringToDate(date: string) {
+    const res = new Date(date);
+    return res.getTime();
+  }
+
 }

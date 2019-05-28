@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ModalTurnComponent implements OnInit {
 
-  @Input() date: string;
+  @Input() date;
   @Input() turns: any;
   @Output() turnGotChanges = new EventEmitter<any>();
   @Output() turnGotNew = new EventEmitter<any>();
@@ -168,7 +168,11 @@ export class ModalTurnComponent implements OnInit {
   checkOnTime(data, num) {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
-    if (date.toString() === this.date.toString()) {
+    this.date.setHours(0, 0, 0, 0);
+    console.log(date);
+    console.log(this.date);
+    // CHANGEX
+    if (date.getTime() === this.date.getTime()) {
       const date_ = new Date().getHours() + ':' + new Date().getMinutes();
       if (num === 0) {
         if (date_ > data.stopLines_going[0].hour) {
@@ -184,7 +188,9 @@ export class ModalTurnComponent implements OnInit {
         }
       }
     }
-    if (date.toString() < this.date.toString()) {
+    console.log('HELLO');
+    // CHANGEX
+    if (date.getTime() > this.date.getTime()) {
       return false;
     }
     return true;

@@ -63,7 +63,8 @@ export class HomeComponent implements OnInit {
 
   getStopLines() {
     this.date.setHours(0, 0, 0, 0);
-    this.currentTurn = this.currentUser.turns.filter(d => d.date.toString() === this.date.toString());
+    // CHANGEX
+    this.currentTurn = this.currentUser.turns.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime());
     console.log(this.currentTurn);
     if (this.currentTurn !== null) {
       if (this.GorR === true) {
@@ -254,8 +255,10 @@ export class HomeComponent implements OnInit {
 
   isChildTaken(child) {
     if (new Date().getHours() < 12) {
-      if (child.reservations.filter(d => d.date.toString() === this.date.toString() && d.stopLine.direction === 'GOING').length > 0) {
-        if (child.reservations.filter(d => d.date.toString() === this.date.toString()
+      // CHANGEX
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'GOING').length > 0) {
+        // CHANGEX
+        if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'GOING')[0].status === 'TAKEN') {
           return true;
         } else {
@@ -265,8 +268,10 @@ export class HomeComponent implements OnInit {
         return false;
       }
     } else {
-      if (child.reservations.filter(d => d.date.toString() === this.date.toString() && d.stopLine.direction === 'RETURN').length > 0) {
-        if (child.reservations.filter(d => d.date.toString() === this.date.toString()
+      // CHANGEX
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'RETURN').length > 0) {
+        // CHANGEX
+        if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'RETURN')[0].status === 'TAKEN') {
           return true;
         } else {
@@ -280,15 +285,19 @@ export class HomeComponent implements OnInit {
 
   getWaitingInStop(child) {
     if (new Date().getHours() < 12) {
-      if (child.reservations.filter(d => d.date.toString() === this.date.toString() && d.stopLine.direction === 'GOING').length > 0) {
-        return child.reservations.filter(d => d.date.toString() === this.date.toString()
+      // CHANGEX
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'GOING').length > 0) {
+        // CHANGEX
+        return child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'GOING')[0].stopLine.stop.name;
       } else {
         return child.child.defaultGoing.stop.name;
       }
     } else {
-      if (child.reservations.filter(d => d.date.toString() === this.date.toString() && d.stopLine.direction === 'RETURN').length > 0) {
-        return child.reservations.filter(d => d.date.toString() === this.date.toString()
+      // CHANGEX
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'RETURN').length > 0) {
+        // CHANGEX
+        return child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'RETURN')[0].stopLine.stop.name;
       } else {
         return child.child.defaultReturn.stop.name;

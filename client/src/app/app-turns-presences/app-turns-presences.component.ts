@@ -19,7 +19,7 @@ export class AppTurnsPresencesComponent implements OnInit {
   confirmModal: NzModalRef;
   private turns: any;
   private onModal: boolean | false;
-  private date;
+  private date = new Date();
   private closed: boolean;
 
   constructor(
@@ -67,11 +67,11 @@ export class AppTurnsPresencesComponent implements OnInit {
   getCellDate(date, date2) {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (date.toISOString() < now.toISOString()) {
+    if (this.authService.stringToDate(date) < now.getTime()) {
       return false;
     }
-
-    if (date.toString() === date2.date.toString()) {
+    // CHANGEX
+    if (this.authService.stringToDate(date) === this.authService.stringToDate(date2.date)) {
       return true;
     }
     return false;
@@ -89,10 +89,11 @@ export class AppTurnsPresencesComponent implements OnInit {
     }
   }
 
-  getTurns(date: string) {
+  getTurns(date) {
     const turns = [];
     for ( let i = 0; i < this.currentTurns.length; i++) {
-      if (date.toString() === this.currentTurns[i].date.toString()) {
+      // CHANGEX
+      if (this.authService.stringToDate(date) === this.authService.stringToDate(this.currentTurns[i].date)) {
         turns.push(this.currentTurns[i]);
       }
     }

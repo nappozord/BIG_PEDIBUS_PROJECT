@@ -19,7 +19,7 @@ export class ChildComponent implements OnInit {
   private bool: boolean | false;
   private onModal: boolean | false;
   private id_;
-  private date_;
+  private date_ = new Date();
   private idStopLine;
   private id_res;
   private status_old;
@@ -68,11 +68,11 @@ export class ChildComponent implements OnInit {
   getCellDate(date, date2) {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (date.toISOString() < now.toISOString()) {
+    if (this.authService.stringToDate(date) < now.getTime()) {
       return false;
     }
-
-    if (date.toString() === date2.date.toString()) {
+    // CHANGEX
+    if (this.authService.stringToDate(date) === this.authService.stringToDate(date2.date)) {
       this.bool = true;
       return true;
     }
@@ -96,13 +96,14 @@ export class ChildComponent implements OnInit {
   check(date, direction) {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    if (date.toISOString() < now.toISOString()) {
+    if (date.getTime() < now.getTime()) {
       return false;
     }
 
     if (this.authService.holidays(date)) {
       for ( let i = 0; i < this.currentReservationHacks.length; i++) {
-        if (date.toString() === this.currentReservationHacks[i].date.toString()
+        // CHANGEX
+        if (this.authService.stringToDate(date) === this.authService.stringToDate(this.currentReservationHacks[i].date)
           && this.currentReservationHacks[i].stopLine.direction === direction) {
           return false;
         }

@@ -14,7 +14,7 @@ export class ModalRefComponent implements OnInit {
 
   @Input() child: any;
   @Input() id: any;
-  @Input() date: string;
+  @Input() date;
   @Input() idStopLine: any;
   @Input() id_res: any;
   @Input() status_old: any;
@@ -119,7 +119,8 @@ export class ModalRefComponent implements OnInit {
   checkOnTime(data) {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
-    if (date.toString() === this.date.toString()) {
+    // CHANGEX
+    if (date.getTime() === this.date.getTime()) {
       const date_ = new Date().getHours() + ':' + new Date().getMinutes();
       if (date_ > data.hour) {
         return false;

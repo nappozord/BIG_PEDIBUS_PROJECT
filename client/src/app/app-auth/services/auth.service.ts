@@ -290,7 +290,7 @@ export class AuthService {
     this.linesList = [];
 
     for (let i = 0; i < currentUserLines.length; i++) {
-      this.linesList.push(currentUserLines[i].name);
+      this.linesList.push(currentUserLines[i].childName);
     }
 
     this.filteredOptions_c = this.linesList.filter(linesList => linesList.toLowerCase().indexOf(value.toLowerCase()) === 0);

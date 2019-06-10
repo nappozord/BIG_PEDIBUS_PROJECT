@@ -66,7 +66,7 @@ export class AppReservationComponent implements OnInit {
     new Observable((observer: Observer<ValidationErrors | null>) => {
       setTimeout(() => {
         for (let i = 0; i < this.currentUser.children.length; i++) {
-          if (control.value === this.currentUser.children[i].name) {
+          if (control.value === this.currentUser.children[i].childName) {
             observer.next(null);
             break;
           } else {

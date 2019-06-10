@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Something went wrong'
           );
         }
@@ -168,14 +168,14 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Kid taken!'
           );
           this.currentReservation.filter(d => d.id === reservation_.id_res)[0].status = reservation_.status;
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Something went wrong'
           );
         }
@@ -203,14 +203,14 @@ export class HomeComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Kid taken!'
           );
           this.setConfirmation(reservation, data.id, stopLine);
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Something went wrong'
           );
         }

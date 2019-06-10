@@ -108,7 +108,7 @@ export class AppReservationComponent implements OnInit {
             },
             error => {
               this.notification.error(
-                'NApp',
+                'PBus',
                 'The line does not exist'
               );
               this.router.navigate(['/']);
@@ -156,7 +156,7 @@ export class AppReservationComponent implements OnInit {
       .subscribe(
         asd => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Reservation OK'
           );
           if (this.checked === true) {
@@ -169,7 +169,7 @@ export class AppReservationComponent implements OnInit {
         },
           error => {
           this.notification.error(
-          'NApp',
+          'PBus',
           error || 'Something went wrong!'
       );
       this.router.navigate(['/']);
@@ -185,7 +185,7 @@ export class AppReservationComponent implements OnInit {
       }
     }
     this.notification.error(
-      'NApp',
+      'PBus',
       'The stop is not available for the return'
     );
 

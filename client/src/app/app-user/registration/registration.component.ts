@@ -48,13 +48,13 @@ export class RegistrationComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Confirmation email re-sent.'
           );
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         }

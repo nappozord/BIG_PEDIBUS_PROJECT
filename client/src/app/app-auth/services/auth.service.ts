@@ -379,7 +379,7 @@ export class AuthService {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });

@@ -69,7 +69,7 @@ export class ModalRefComponent implements OnInit {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             'The line does not exist'
           );
           this.router.navigate(['/']);
@@ -212,14 +212,14 @@ export class ModalRefComponent implements OnInit {
         .subscribe(
           res => {
             this.notification.success(
-              'NApp',
+              'PBus',
               'Your reservation has been updated'
             );
             this.updateOldReservation(res);
           },
           error => {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Something went wrong'
             );
           });
@@ -230,14 +230,14 @@ export class ModalRefComponent implements OnInit {
         .subscribe(
           res => {
             this.notification.success(
-              'NApp',
+              'PBus',
               'Your new reservation has been made'
             );
             this.makeNewReservation(res);
           },
           error => {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Something went wrong'
             );
           });

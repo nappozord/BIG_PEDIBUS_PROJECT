@@ -60,7 +60,7 @@ export class LineComponent implements OnInit {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             'The line does not exist'
           );
           this.router.navigate(['/']);
@@ -133,14 +133,14 @@ export class LineComponent implements OnInit {
       .subscribe(
         res => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'You successfully subscribed to this line'
           );
           this.router.navigate(['/']);
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Something went wrong'
           );
           this.router.navigate(['/']);

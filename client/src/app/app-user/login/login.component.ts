@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'You\'re successfully logged in!'
           );
           this.router.navigate(['/']);
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
         error => {
           if (error.toString() === 'Email not yet confirmed.') {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Sorry! Something went wrong. Please try again!'
             );
             this.isloading = true;
@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
                 data => {
                   this.isloading = false;
                   this.notification.success(
-                    'NApp',
+                    'PBus',
                     'Confirmation email re-sent.'
                   );
                 },
@@ -88,14 +88,14 @@ export class LoginComponent implements OnInit {
                 error => {
                   this.isloading = false;
                   this.notification.error(
-                    'NApp',
+                    'PBus',
                     error || 'Sorry! Something went wrong. Please try again!'
                   );
                 }
               );
           } else {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Sorry! Something went wrong. Please try again!'
             );
           }

@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/']);
     this.notification.success(
-      'NApp',
+      'PBus',
       'You\'re safely logged out!'
     );
   }

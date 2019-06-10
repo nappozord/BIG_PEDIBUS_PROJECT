@@ -53,7 +53,7 @@ export class UserProfileComponent implements OnInit {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });
@@ -150,14 +150,14 @@ export class UserProfileComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Changes saved!'
           );
           this.router.navigate(['listallusers']);
         },
           error => {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Sorry! Something went wrong. Please try again!'
             );
           });

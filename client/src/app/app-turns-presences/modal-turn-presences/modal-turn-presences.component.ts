@@ -148,7 +148,7 @@ export class ModalTurnPresencesComponent implements OnInit {
         .subscribe(
           data => {
             this.notification.success(
-              'NApp',
+              'PBus',
               'Turns confirmed'
             );
             console.log(data);
@@ -156,7 +156,7 @@ export class ModalTurnPresencesComponent implements OnInit {
           },
           error => {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'There was some error'
             );
             this.closeModal.emit();

@@ -48,7 +48,7 @@ export class ModalTurnComponent implements OnInit {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });
@@ -231,14 +231,14 @@ export class ModalTurnComponent implements OnInit {
         .subscribe(
           data => {
             this.notification.success(
-              'NApp',
+              'PBus',
               'Your turn has been added'
             );
             this.makeNewTurn(data, line);
           },
           error => {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Something went wrong'
             );
           });
@@ -276,14 +276,14 @@ export class ModalTurnComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Your turn has been deleted'
           );
           this.deleteTurnCallback(id);
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Something went wrong'
           );
         });
@@ -331,14 +331,14 @@ export class ModalTurnComponent implements OnInit {
         .subscribe(
           data => {
             this.notification.success(
-              'NApp',
+              'PBus',
               'Your turn has been changed'
             );
             this.makeTurnChanges(data, id, line);
           },
           error => {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Something went wrong'
             );
           });

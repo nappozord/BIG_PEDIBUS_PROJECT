@@ -51,7 +51,7 @@ export class SignupComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Thank you! Your profile has been updated!'
           );
           localStorage.removeItem('token');
@@ -60,7 +60,7 @@ export class SignupComponent implements OnInit {
         error => {
           this.isloading = false;
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });

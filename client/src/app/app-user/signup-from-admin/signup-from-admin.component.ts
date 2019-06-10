@@ -52,7 +52,7 @@ export class SignupFromAdminComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Thank you! You\'re successfully registered. Confirm your email!'
           );
           this.router.navigate(['/registrationconfirm']);
@@ -60,7 +60,7 @@ export class SignupFromAdminComponent implements OnInit {
         error => {
           this.isloading = false;
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });

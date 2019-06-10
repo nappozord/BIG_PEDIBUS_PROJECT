@@ -45,7 +45,7 @@ export class AppTurnsPresencesComponent implements OnInit {
           },
           error => {
             this.notification.error(
-              'NApp',
+              'PBus',
               error || 'Something went wrong'
             );
           });

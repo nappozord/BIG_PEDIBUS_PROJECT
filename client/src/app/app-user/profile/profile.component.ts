@@ -160,13 +160,13 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Changes saved!'
           );
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });
@@ -240,7 +240,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Changes saved!'
           );
           this.updateCurrentUser();
@@ -249,7 +249,7 @@ export class ProfileComponent implements OnInit {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });

@@ -49,7 +49,7 @@ export class ChildComponent implements OnInit {
         },
         error => {
           this.notification.error(
-            'NApp',
+            'PBus',
             'The child does not exist'
           );
           this.router.navigate(['/']);

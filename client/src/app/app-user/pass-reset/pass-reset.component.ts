@@ -39,7 +39,7 @@ export class PassResetComponent implements OnInit {
       .subscribe(
         data => {
           this.notification.success(
-            'NApp',
+            'PBus',
             'Thank you! Now confirm your new password!'
           );
           this.router.navigate(['/recoveryconfirm']);
@@ -47,7 +47,7 @@ export class PassResetComponent implements OnInit {
         error => {
           this.isloading = false;
           this.notification.error(
-            'NApp',
+            'PBus',
             error || 'Sorry! Something went wrong. Please try again!'
           );
         });

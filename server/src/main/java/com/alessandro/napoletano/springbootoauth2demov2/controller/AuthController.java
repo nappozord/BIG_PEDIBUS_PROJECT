@@ -85,6 +85,7 @@ public class AuthController {
         }
 
         User user = new User();
+        user.setName("TEMP");
         user.setEmail(signUpRequest.getEmail());
         user.setProvider(AuthProvider.local);
         user.setRole(signUpRequest.getRole());

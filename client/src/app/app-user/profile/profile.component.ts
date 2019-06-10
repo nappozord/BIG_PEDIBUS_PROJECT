@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
     for (let i = 0; i < this.currentUser.children.length; i++) {
       this.childrenList.push({
         id: i,
-        name: this.currentUser.children[i].childName,
+        childName: this.currentUser.children[i].childName,
         status: '',
         old_name: this.currentUser.children[i].childName
       });
@@ -231,6 +231,7 @@ export class ProfileComponent implements OnInit {
 
     this.currentUser.children = this.childrenList;
     localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+    console.log(this.childrenList);
 
     this.notification = this.authService.setNotificationConfig();
 

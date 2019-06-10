@@ -183,13 +183,13 @@
                   <span class="user-full-name-info">Manage Line Turns</span></span>
               </a>
             </li>
-            <li nz-menu-divider style="margin: 0;"></li>
+            <li nz-menu-divider style="margin: 0;" *ngIf="this.getCurrentUser().role !== 'USER'"></li>
             <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;" *ngIf="this.getCurrentUser().role !== 'USER'">
               <a routerLink="/listallusers" style="text-decoration: none">
                 <span><i nz-icon class="nav-icon2" type="team"></i><span class="user-full-name-info">See all Parents</span></span>
               </a>
             </li>
-            <li nz-menu-divider style="margin: 0;"></li>
+            <li nz-menu-divider style="margin: 0;" *ngIf="this.getCurrentUser().role !== 'USER'"></li>
             <li nz-menu-item (click)="close_or_not()" style="margin-top: 8px;">
               <a routerLink="/lines" style="text-decoration: none">
                 <span><i nz-icon class="nav-icon2" type="global"></i><span class="user-full-name-info">See all Lines</span></span>

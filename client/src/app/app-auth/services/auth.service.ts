@@ -70,43 +70,43 @@ export class AuthService {
 
   reservationConfirm(reservation: any) {
     console.log(reservation);
-    return this.http.post(API_BASE_URL + '/auth/reservations/' + reservation.line + '/' + reservation.date,
+    return this.http.post(API_BASE_URL + '/reservations/' + reservation.line + '/' + reservation.date,
       { 'stop_id': reservation.stop, 'name': reservation.child, 'direction': reservation.direction,
       'stopLine_id': reservation.id, 'status': reservation.status});
   }
 
   reservationUpdate(reservation: any) {
-    return this.http.put(API_BASE_URL + '/auth/reservations/' + reservation.line + '/' + reservation.date + '/' + reservation.id_res,
+    return this.http.put(API_BASE_URL + '/reservations/' + reservation.line + '/' + reservation.date + '/' + reservation.id_res,
       { 'stop_id': reservation.stop, 'name': reservation.child, 'direction': reservation.direction,
         'status': reservation.status});
   }
 
   turnConfirm(turn: any) {
-    return this.http.post(API_BASE_URL + '/auth/turns/' + turn.line + '/' + turn.date, {'stopLine_start': turn.stopLine_start,
+    return this.http.post(API_BASE_URL + '/turns/' + turn.line + '/' + turn.date, {'stopLine_start': turn.stopLine_start,
     'stopLine_arrival': turn.stopLine_arrival, 'name': turn.name, 'direction': turn.direction});
   }
 
   turnDecide(id_conf: any[], id_canc: any[]) {
-    return this.http.put(API_BASE_URL + '/auth/turns/confirmTurn', {'id_conf': id_conf, 'id_canc': id_canc});
+    return this.http.put(API_BASE_URL + '/turns/confirmTurn', {'id_conf': id_conf, 'id_canc': id_canc});
   }
 
   turnChange(turn: any) {
-    return this.http.put(API_BASE_URL + '/auth/turns/' + turn.line + '/' + turn.date + '/' + turn.id,
+    return this.http.put(API_BASE_URL + '/turns/' + turn.line + '/' + turn.date + '/' + turn.id,
       {'stopLine_start': turn.stopLine_start, 'stopLine_arrival': turn.stopLine_arrival,
         'name': turn.name, 'direction': turn.direction});
   }
 
   turnDelete(id) {
-    return this.http.delete(API_BASE_URL + '/auth/turns/' + id);
+    return this.http.delete(API_BASE_URL + '/turns/' + id);
   }
 
   getTurnsByLine(id: number) {
     console.log(id);
-    return this.http.get(API_BASE_URL + '/auth/turns/' + id);
+    return this.http.get(API_BASE_URL + '/turns/' + id);
   }
 
   setDefault(options: any) {
-    return this.http.post(API_BASE_URL + '/auth/child/' + options.name + '/' + options.line,
+    return this.http.post(API_BASE_URL + '/child/' + options.name + '/' + options.line,
       {'stop_going': options.stop_going, 'stop_return': options.stop_return});
   }
 
@@ -128,7 +128,7 @@ export class AuthService {
   }
 
   getAllLines() {
-    return this.http.get(API_BASE_URL + '/auth/lines/justTheNames')
+    return this.http.get(API_BASE_URL + '/lines/justTheNames')
       .pipe(first())
       .subscribe(
         (data: any) => {
@@ -193,7 +193,7 @@ export class AuthService {
   }
 
   getLineReservation(options) {
-    return this.http.get(API_BASE_URL + '/auth/reservations/' + options.line + '/' + options.date);
+    return this.http.get(API_BASE_URL + '/reservations/' + options.line + '/' + options.date);
   }
 
   getAllUsersInfo() {
@@ -205,15 +205,15 @@ export class AuthService {
   }
 
   getallLinesInfo() {
-    return this.http.get(API_BASE_URL + '/auth/lines');
+    return this.http.get(API_BASE_URL + '/lines');
   }
 
   getAllChildrenInfo() {
-    return this.http.get(API_BASE_URL + '/auth/children/' + this.getCurrentUserInfo().email);
+    return this.http.get(API_BASE_URL + '/children/' + this.getCurrentUserInfo().email);
   }
 
   getAllChildrenInfoAndReservations() {
-    return this.http.get(API_BASE_URL + '/auth/childrenAndReservations/' + this.getCurrentUserInfo().email);
+    return this.http.get(API_BASE_URL + '/childrenAndReservations/' + this.getCurrentUserInfo().email);
   }
 
   getAvatarColor(name) {
@@ -246,11 +246,11 @@ export class AuthService {
   }
 
   getLineInfo(lineName) {
-    return this.http.get(API_BASE_URL + '/auth/lines/' + lineName);
+    return this.http.get(API_BASE_URL + '/lines/' + lineName);
   }
 
   getChildInfo(childName) {
-    return this.http.get(API_BASE_URL + '/auth/child/' + childName);
+    return this.http.get(API_BASE_URL + '/child/' + childName);
   }
 
   OnInputFilteredLinesForSearch(value: string): void {
@@ -352,7 +352,7 @@ export class AuthService {
   }
 
   setAllNotifications() {
-    this.http.get(API_BASE_URL + '/auth/messages/' + this.getCurrentUserInfo().id)
+    this.http.get(API_BASE_URL + '/messages/' + this.getCurrentUserInfo().id)
       .pipe(first())
       .subscribe(
         data => {},

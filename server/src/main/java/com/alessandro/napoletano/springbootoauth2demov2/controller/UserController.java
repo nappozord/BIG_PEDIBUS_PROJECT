@@ -105,12 +105,12 @@ public class UserController {
                     if (childTMP.getStatus().equals("updated")) {
                         if (childTMP.getOld_name() == null) {
                             Child child = new Child();
-                            child.setChildName(childTMP.getName());
+                            child.setChildName(childTMP.getChildName());
                             child.setParent(user);
                             user.getChildren().add(child);
                         } else {
                             Child child = childRepository.findChildByChildName(childTMP.getOld_name());
-                            user.setName(childTMP.getName());
+                            child.setChildName(childTMP.getChildName());
                             childRepository.save(child);
                         }
                     } else {
@@ -118,7 +118,7 @@ public class UserController {
                             Child child = new Child();
                             child.setChildName(childTMP.getOld_name());
                             user.getChildren().remove(child);
-                            childService.removeChildByName(childTMP.getName());
+                            childService.removeChildByName(childTMP.getChildName());
                         }
                     }
                 }

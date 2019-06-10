@@ -15,7 +15,6 @@ import java.util.List;
 import java.net.URI;
 
 @Controller
-@RequestMapping("/auth")
 public class MessageController {
 
     @Autowired

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ChildTmp {
 
-    private String name;
+    private String childName;
     private String status;
     private String old_name;
 }

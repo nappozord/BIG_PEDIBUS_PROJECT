@@ -103,17 +103,17 @@
                 <td>
                   <div *ngIf="editId_c !== data.id; else editTpl_c">
                     <div style="font-size: 20px" *ngIf="this.childrenList[data.id].status !== 'deleted'; else deletedTpl_c">
-                      {{ data.name }}
+                      {{ data.childName }}
                     </div>
                     <ng-template #deletedTpl_c>
                       <div style="font-size: 20px; text-decoration: line-through;">
-                        {{ data.name }}
+                        {{ data.childName }}
                         DEAD
                       </div>
                     </ng-template>
                   </div>
                   <ng-template #editTpl_c>
-                    <input type="text" nz-input [(ngModel)]="data.name"/>
+                    <input type="text" nz-input [(ngModel)]="data.childName"/>
                   </ng-template>
                 </td>
                 <td>

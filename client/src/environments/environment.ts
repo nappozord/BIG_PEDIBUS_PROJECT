@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  API_BASE_URL: 'http://nappozord.tk:8080' /*'http://localhost:8080'*/,
+  API_BASE_URL: /*'http://nappozord.tk:8080'*/ 'http://localhost:8080',
   ACCESS_TOKEN: 'accessToken',
 
   OAUTH2_REDIRECT_URI: 'http://nappozord.tk:8080/oauth2/redirect',

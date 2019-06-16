@@ -247,7 +247,7 @@ export class HomeComponent implements OnInit {
   }
 
   hasNotDefaultYet(child) {
-    if (child.lineDefault === null) {
+    if (child.child.lineDefault === null && !this.getWaitingInStop(child)) {
       return true;
     }
     return false;
@@ -256,7 +256,8 @@ export class HomeComponent implements OnInit {
   isChildTaken(child) {
     if (new Date().getHours() < 12) {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'GOING').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
+        && d.stopLine.direction === 'GOING').length > 0) {
         // CHANGEX
         if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'GOING')[0].status === 'TAKEN') {
@@ -269,7 +270,8 @@ export class HomeComponent implements OnInit {
       }
     } else {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'RETURN').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
+        && d.stopLine.direction === 'RETURN').length > 0) {
         // CHANGEX
         if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'RETURN')[0].status === 'TAKEN') {
@@ -286,21 +288,31 @@ export class HomeComponent implements OnInit {
   getWaitingInStop(child) {
     if (new Date().getHours() < 12) {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'GOING').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
+        && d.stopLine.direction === 'GOING').length > 0) {
         // CHANGEX
         return child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'GOING')[0].stopLine.stop.name;
       } else {
-        return child.child.defaultGoing.stop.name;
+        if (child.child.defaultGoing !== null) {
+          return child.child.defaultGoing.stop.name;
+        } else {
+          return null;
+        }
       }
     } else {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'RETURN').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
+        && d.stopLine.direction === 'RETURN').length > 0) {
         // CHANGEX
         return child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'RETURN')[0].stopLine.stop.name;
       } else {
-        return child.child.defaultReturn.stop.name;
+        if (child.child.defaultReturn !== null) {
+          return child.child.defaultReturn.stop.name;
+        } else {
+          return null;
+        }
       }
     }
   }

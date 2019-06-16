@@ -68,7 +68,7 @@
                 {{ child.child.childName }}
               </a>
               <div class="username">
-                <a *ngIf="hasNotDefaultYet(child.child); else subscribed" (click)="this.router.navigate(['/lines', { child: child.child.childName }])">
+                <a *ngIf="hasNotDefaultYet(child); else subscribed" (click)="this.router.navigate(['/lines', { child: child.child.childName }])">
                   Subscribe to a new line now!
                 </a>
                 <ng-template #subscribed>

@@ -392,10 +392,10 @@ export class AuthService {
 
   holidays(date: Date) {
     // +1 in all months because index starts at 0???
-    if (date.getMonth() === 6 || date.getMonth() === 7 || (date.getMonth() === 5 && date.getDate() > 15)
+    /*if (date.getMonth() === 6 || date.getMonth() === 7 || (date.getMonth() === 5 && date.getDate() > 15)
       || (date.getMonth() === 8 && date.getDate() < 15) || date.getFullYear() > this.now.getFullYear()) {
       return false;
-    }
+    }*/
     return true;
   }
 

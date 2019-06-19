@@ -128,4 +128,17 @@ public class AuthController {
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Ok"));
     }
+
+    @GetMapping("/getAllConfirmedUsers")
+    public ResponseEntity<?> getAllConfirmedUsers(){
+
+        List<User> users = userRepository.findAllByEmailVerifiedTrue();
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .buildAndExpand(users).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponseUsers(true, "Here is the list!", users));
+    }
 }

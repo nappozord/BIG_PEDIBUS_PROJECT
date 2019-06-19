@@ -1,7 +1,7 @@
 package com.alessandro.napoletano.springbootoauth2demov2.repository;
 
-import com.alessandro.napoletano.springbootoauth2demov2.model.child.Child;
 import com.alessandro.napoletano.springbootoauth2demov2.model.User;
+import com.alessandro.napoletano.springbootoauth2demov2.model.child.Child;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

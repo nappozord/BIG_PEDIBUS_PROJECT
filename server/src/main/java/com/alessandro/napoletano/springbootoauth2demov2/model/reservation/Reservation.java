@@ -27,10 +27,24 @@ public class Reservation {
 
     private String status;
 
+    private Boolean reserved;
+
     @ManyToOne
     @JoinColumn
     @JsonIgnore
     private StopLine stopLine;
 
     public Reservation() {}
+
+    public ReservationHack createReservationHack(){
+        ReservationHack reservationHack = new ReservationHack();
+        reservationHack.setId(this.getId());
+        reservationHack.setStatus(this.getStatus());
+        reservationHack.setDate(this.getDate());
+        reservationHack.setStopLine(this.getStopLine());
+        reservationHack.setChild(this.getChild().getChildName());
+        reservationHack.setParent(this.getChild().getParent().getEmail());
+        reservationHack.setReserved(this.getReserved());
+        return reservationHack;
+    }
 }

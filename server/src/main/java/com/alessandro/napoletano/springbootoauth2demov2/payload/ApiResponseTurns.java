@@ -4,18 +4,20 @@ import com.alessandro.napoletano.springbootoauth2demov2.model.turn.TurnHack;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class ApiResponseTurn extends ApiResponse {
+public class ApiResponseTurns extends ApiResponse {
 
-    private TurnHack data;
+    private List<TurnHack> data;
 
-    public ApiResponseTurn(boolean success, TurnHack data) {
+    public ApiResponseTurns(boolean success, List<TurnHack> data) {
         super(success);
         this.data = data;
     }
 
-    public ApiResponseTurn(boolean success, String message, TurnHack data) {
+    public ApiResponseTurns(boolean success, String message, List<TurnHack> data) {
         super(success, message);
         this.data = data;
     }

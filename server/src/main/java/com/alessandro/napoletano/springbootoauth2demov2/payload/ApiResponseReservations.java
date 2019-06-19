@@ -4,18 +4,20 @@ import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.Reserv
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class ApiResponseReservation extends ApiResponse {
+public class ApiResponseReservations extends ApiResponse {
 
-    private ReservationHack data;
+    private List<ReservationHack> data;
 
-    public ApiResponseReservation(boolean success, ReservationHack data) {
+    public ApiResponseReservations(boolean success, List<ReservationHack> data) {
         super(success);
         this.data = data;
     }
 
-    public ApiResponseReservation(boolean success, String message, ReservationHack data) {
+    public ApiResponseReservations(boolean success, String message, List<ReservationHack> data) {
         super(success, message);
         this.data = data;
     }

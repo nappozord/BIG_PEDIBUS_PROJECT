@@ -4,7 +4,7 @@ import com.alessandro.napoletano.springbootoauth2demov2.exception.BadRequestExce
 import com.alessandro.napoletano.springbootoauth2demov2.model.PasswordResetToken;
 import com.alessandro.napoletano.springbootoauth2demov2.model.User;
 import com.alessandro.napoletano.springbootoauth2demov2.password_reset.OnPasswordResetEvent;
-import com.alessandro.napoletano.springbootoauth2demov2.payload.ApiResponseUser;
+import com.alessandro.napoletano.springbootoauth2demov2.payload.ApiResponse;
 import com.alessandro.napoletano.springbootoauth2demov2.payload.PasswordResetRequest;
 import com.alessandro.napoletano.springbootoauth2demov2.repository.PasswordTokenRepository;
 import com.alessandro.napoletano.springbootoauth2demov2.repository.UserRepository;
@@ -55,7 +55,7 @@ public class PasswordResetController  {
                 (location, result.get(), passwordResetRequest.getPassword()));
 
         return ResponseEntity.created(location)
-                .body(new ApiResponseUser(true, "Waiting for email verification@"));
+                .body(new ApiResponse(true, "Waiting for email verification@"));
     }
 
     @GetMapping("/recoveryConfirm")
@@ -83,6 +83,6 @@ public class PasswordResetController  {
                 .buildAndExpand(result.getId()).toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponseUser(true, "User registered successfully@", user.getEmail()));
+                .body(new ApiResponse(true, "User registered successfully@"));
     }
 }

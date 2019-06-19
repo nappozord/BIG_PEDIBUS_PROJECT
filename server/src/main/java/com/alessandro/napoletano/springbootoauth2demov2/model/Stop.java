@@ -1,7 +1,7 @@
 package com.alessandro.napoletano.springbootoauth2demov2.model;
 
 import com.alessandro.napoletano.springbootoauth2demov2.model.stopline.StopLine;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,7 +34,6 @@ public class Stop {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         Stop stop = (Stop) o;
         return Objects.equals(this.name, stop.name);
     }

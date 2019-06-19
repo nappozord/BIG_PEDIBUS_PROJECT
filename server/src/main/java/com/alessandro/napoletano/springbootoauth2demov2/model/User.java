@@ -3,7 +3,6 @@ package com.alessandro.napoletano.springbootoauth2demov2.model;
 import com.alessandro.napoletano.springbootoauth2demov2.model.child.Child;
 import com.alessandro.napoletano.springbootoauth2demov2.model.turn.Turn;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,11 +39,11 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "user_line",
+            name = "user_admin_line",
             joinColumns = {@JoinColumn(name="user_id")},
             inverseJoinColumns = {@JoinColumn(name="line_id")}
     )
-    private List<Line> lines = new ArrayList<>();
+    private List<Line> administeredLines = new ArrayList<>();
 
     @Column(nullable = false)
     private Boolean emailVerified = false;

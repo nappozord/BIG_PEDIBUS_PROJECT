@@ -1,14 +1,16 @@
 package com.alessandro.napoletano.springbootoauth2demov2.model.turn;
 
 import com.alessandro.napoletano.springbootoauth2demov2.model.Line;
-import com.alessandro.napoletano.springbootoauth2demov2.model.stopline.StopLine;
 import com.alessandro.napoletano.springbootoauth2demov2.model.User;
+import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.ReservationHack;
+import com.alessandro.napoletano.springbootoauth2demov2.model.stopline.StopLine;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -24,7 +26,7 @@ public class Turn {
     @JsonIgnore
     private User user;
 
-    private String date;
+    private Date date;
 
     private String direction;
 
@@ -44,4 +46,17 @@ public class Turn {
     private Line line;
 
     public Turn() {}
+
+    public TurnHack createTurnHack(){
+        TurnHack turnHack = new TurnHack();
+        turnHack.setId(this.getId());
+        turnHack.setDate(this.getDate());
+        turnHack.setUser(this.getUser());
+        turnHack.setDirection(this.getDirection());
+        turnHack.setStatus(this.getStatus());
+        turnHack.setStopLine_arrival(this.getStopLine_arrival());
+        turnHack.setStopLine_start(this.getStopLine_start());
+        turnHack.setLine(this.getLine());
+        return turnHack;
+    }
 }

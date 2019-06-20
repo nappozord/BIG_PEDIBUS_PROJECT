@@ -1,9 +1,11 @@
 package com.alessandro.napoletano.springbootoauth2demov2.service;
 
-import com.alessandro.napoletano.springbootoauth2demov2.model.Line;
-import com.alessandro.napoletano.springbootoauth2demov2.model.Stop;
+import com.alessandro.napoletano.springbootoauth2demov2.model.*;
+import com.alessandro.napoletano.springbootoauth2demov2.model.child.Child;
+import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.Reservation;
+import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.TempForReservation;
 import com.alessandro.napoletano.springbootoauth2demov2.model.stopline.StopLine;
-import com.alessandro.napoletano.springbootoauth2demov2.repository.LineRepository;
+import com.alessandro.napoletano.springbootoauth2demov2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,54 +20,73 @@ public class IntroService {
     @Autowired
     private LineRepository lineRepository;
 
-    public void save(List<Line> lines){
+    @Autowired
+    private StopRepository stopRepository;
 
-        List<Stop> stops = new ArrayList<>();
-        List<Line> lines_to_save = new ArrayList<>();
+    @Autowired
+    private UserRepository userRepository;
 
-        for(Line line : lines){
-            Line line1 = new Line(line.getName());
-            for(StopLine stopLine : line.getStopLines_going()){
-                Stop stop1 = stopLine.getStop();
-                int flag = 0;
-                for(Stop stop : stops){
-                    if(stop.equals(stopLine.getStop())){
-                        stop1 = stop;
-                        flag = 1;
-                    }
-                }
-                if(flag == 0){
-                    stops.add(stop1);
-                }
-                StopLine stopLine1 = new StopLine();
-                stopLine1.setDirection(StopLine.Direction.GOING);
-                stopLine1.setHour(stopLine.getHour());
-                stopLine1.setLine(line1);
-                stopLine1.setStop(stop1);
-                line1.getStopLines_going().add(stopLine1);
-            }
-            for(StopLine stopLine : line.getStopLines_return()){
-                Stop stop1 = stopLine.getStop();
-                int flag = 0;
-                for(Stop stop : stops){
-                    if(stop.equals(stopLine.getStop())){
-                        stop1 = stop;
-                        flag = 1;
-                    }
-                }
-                if(flag == 0){
-                    stops.add(stop1);
-                }
-                StopLine stopLine1 = new StopLine();
-                stopLine1.setDirection(StopLine.Direction.RETURN);
-                stopLine1.setHour(stopLine.getHour());
-                stopLine1.setLine(line1);
-                stopLine1.setStop(stop1);
-                line1.getStopLines_return().add(stopLine1);
-            }
-            lines_to_save.add(line1);
+    public void save(ImportedLine importedLine){
+
+        List<Stop> stops = stopRepository.findAll();
+
+        Line line = new Line(importedLine.getName());
+
+        User admin = this.getUserByEmail(importedLine.getEmail());
+        if(admin == null){
+            return;
         }
-        lineRepository.saveAll(lines_to_save);
+
+        line.setAdmin(admin);
+
+        for(ImportedStopLine importedStopLine : importedLine.getStopLines_going()){
+            Stop importedStop = new Stop(importedStopLine.getStop().getName());
+
+            int flag = 0;
+            Stop foundStop = stops.stream().filter(stop -> {
+                return stop.equals(importedStop);
+            }).findFirst().orElse(null);
+
+            if(foundStop == null){
+                stopRepository.save(importedStop);
+                stops.add(importedStop);
+                foundStop = importedStop;
+            }
+
+            StopLine stopLine = new StopLine();
+            stopLine.setDirection(StopLine.Direction.GOING);
+            stopLine.setHour(importedStopLine.getHour());
+            stopLine.setLine(line);
+            stopLine.setStop(foundStop);
+            line.getStopLines_going().add(stopLine);
+        }
+
+        for(ImportedStopLine importedStopLine : importedLine.getStopLines_return()){
+            Stop importedStop = new Stop(importedStopLine.getStop().getName());
+
+            int flag = 0;
+            Stop foundStop = stops.stream().filter(stop -> {
+                return stop.equals(importedStop);
+            }).findFirst().orElse(null);
+
+            if(foundStop == null){
+                stopRepository.save(importedStop);
+                stops.add(importedStop);
+                foundStop = importedStop;
+            }
+
+            StopLine stopLine = new StopLine();
+            stopLine.setDirection(StopLine.Direction.RETURN);
+            stopLine.setHour(importedStopLine.getHour());
+            stopLine.setLine(line);
+            stopLine.setStop(foundStop);
+            line.getStopLines_going().add(stopLine);
+        }
+        lineRepository.save(line);
+    }
+
+    public User getUserByEmail(String email){
+       return userRepository.findByEmail(email).orElse(null);
     }
 
 }

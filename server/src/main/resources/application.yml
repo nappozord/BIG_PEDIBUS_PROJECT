@@ -1,15 +1,16 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/test_oauth2
+#    url: jdbc:postgresql://postgres:5432/postgres
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
     username: postgres
     password: 12345
     driver-class-name: org.postgresql.Driver
-    initialization-mode: never
+    initialization-mode: always
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -42,14 +43,14 @@ spring:
           facebook:
             authorizationUri: https://www.facebook.com/v3.0/dialog/oauth
             tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
-            userInfoUri: https://graph.facebook.com/v3.0/me?fields=child_id,first_name,middle_name,last_name,childName,email,verified,is_verified,picture.width(250).height(250)
+            userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
 
   mail:
     host: smtp.gmail.com
     port: 465
     protocol: smtps
-    username: nappozordtest@gmail.com
-    password: nappozordtest123
+    username: adventurepoop123@gmail.com
+    password: 123qwe.123qwe...
     properties:
       mail:
         transport:
@@ -64,7 +65,7 @@ app:
     tokenExpirationMsec: 864000000
   oauth2:
     # After successfully authenticating with the OAuth2 Provider,
-    # we'll be generating an auth token for the user and sending the token toUser the
+    # we'll be generating an auth token for the user and sending the token to the
     # redirectUri mentioned by the frontend client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
@@ -74,4 +75,4 @@ app:
       - myiosapp://oauth2/redirect
 
 support:
-  email: nappozordtest@gmail.com
+  email: adventurepoop123@gmail.com

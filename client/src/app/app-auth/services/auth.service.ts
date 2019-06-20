@@ -70,19 +70,19 @@ export class AuthService {
 
   reservationConfirm(reservation: any) {
     console.log(reservation);
-    return this.http.post(API_BASE_URL + '/reservations',
+    return this.http.post(API_BASE_URL + '/reservations/' + reservation.line + '/' + reservation.date,
       { 'stop_id': reservation.stop, 'name': reservation.child, 'direction': reservation.direction,
       'stopLine_id': reservation.id, 'status': reservation.status});
   }
 
   reservationUpdate(reservation: any) {
-    return this.http.put(API_BASE_URL + '/reservations/' + reservation.id_res,
+    return this.http.put(API_BASE_URL + '/reservations/' + reservation.line + '/' + reservation.date + '/' + reservation.id_res,
       { 'stop_id': reservation.stop, 'name': reservation.child, 'direction': reservation.direction,
         'status': reservation.status});
   }
 
   turnConfirm(turn: any) {
-    return this.http.post(API_BASE_URL + '/turns/', {'stopLine_start': turn.stopLine_start,
+    return this.http.post(API_BASE_URL + '/turns/' + turn.line + '/' + turn.date, {'stopLine_start': turn.stopLine_start,
     'stopLine_arrival': turn.stopLine_arrival, 'name': turn.name, 'direction': turn.direction});
   }
 
@@ -91,7 +91,7 @@ export class AuthService {
   }
 
   turnChange(turn: any) {
-    return this.http.put(API_BASE_URL + '/turns/' + turn.id,
+    return this.http.put(API_BASE_URL + '/turns/' + turn.line + '/' + turn.date + '/' + turn.id,
       {'stopLine_start': turn.stopLine_start, 'stopLine_arrival': turn.stopLine_arrival,
         'name': turn.name, 'direction': turn.direction});
   }
@@ -102,11 +102,7 @@ export class AuthService {
 
   getTurnsByLine(id: number) {
     console.log(id);
-    return this.http.get(API_BASE_URL + '/turns/', {
-      params: {
-        line_id: '' + id
-      }
-    } );
+    return this.http.get(API_BASE_URL + '/turns/' + id);
   }
 
   setDefault(options: any) {
@@ -132,11 +128,7 @@ export class AuthService {
   }
 
   getAllLines() {
-    return this.http.get(API_BASE_URL + '/lines', {
-      params: {
-        only_the_names: 'true'
-      }
-    } )
+    return this.http.get(API_BASE_URL + '/lines/justTheNames')
       .pipe(first())
       .subscribe(
         (data: any) => {
@@ -201,7 +193,7 @@ export class AuthService {
   }
 
   getLineReservation(options) {
-    return this.http.get(API_BASE_URL + '/reservations/' + options.id_res);
+    return this.http.get(API_BASE_URL + '/reservations/' + options.line + '/' + options.date);
   }
 
   getAllUsersInfo() {
@@ -217,11 +209,7 @@ export class AuthService {
   }
 
   getAllChildrenInfo() {
-    return this.http.get(API_BASE_URL + '/children/', {
-      params: {
-        user_email: this.getCurrentUserInfo().email
-      }
-    } );
+    return this.http.get(API_BASE_URL + '/children/' + this.getCurrentUserInfo().email);
   }
 
   getAllChildrenInfoAndReservations() {
@@ -262,7 +250,11 @@ export class AuthService {
   }
 
   getChildInfo(childName) {
-    return this.http.get(API_BASE_URL + '/children/' + childName);
+    return this.http.get(API_BASE_URL + '/child/' + childName);
+  }
+
+  getAllChildren() {
+    return this.http.get(API_BASE_URL + '/allChildren');
   }
 
   OnInputFilteredLinesForSearch(value: string): void {
@@ -343,7 +335,7 @@ export class AuthService {
   showMessageOutput(messageOutput) {
     console.log(messageOutput);
     this.getCurrentUser();
-    this.setAllChildren();
+    this.setAllUserChildren();
   }
 
   calculateNotificationCount(data) {
@@ -381,7 +373,7 @@ export class AuthService {
     localStorage.setItem('currentUser', JSON.stringify(currentUser_));*/
   }
 
-  setAllChildren() {
+  setAllUserChildren() {
     this.getAllChildrenInfoAndReservations()
       .pipe(first())
       .subscribe(
@@ -404,10 +396,10 @@ export class AuthService {
 
   holidays(date: Date) {
     // +1 in all months because index starts at 0???
-    if (date.getMonth() === 6 || date.getMonth() === 7 || (date.getMonth() === 5 && date.getDate() > 15)
-      || (date.getMonth() === 8 && date.getDate() < 15) || date.getFullYear() > this.now.getFullYear()) {
-      return false;
-    }
+    // if (date.getMonth() === 6 || date.getMonth() === 7 || (date.getMonth() === 5 && date.getDate() > 15)
+    //   || (date.getMonth() === 8 && date.getDate() < 15) || date.getFullYear() > this.now.getFullYear()) {
+    //   return false;
+    // }
     return true;
   }
 

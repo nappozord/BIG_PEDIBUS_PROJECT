@@ -1,21 +1,17 @@
 package com.alessandro.napoletano.springbootoauth2demov2;
 
 import com.alessandro.napoletano.springbootoauth2demov2.config.AppProperties;
-import com.alessandro.napoletano.springbootoauth2demov2.model.ImportedLine;
 import com.alessandro.napoletano.springbootoauth2demov2.model.Line;
-import com.alessandro.napoletano.springbootoauth2demov2.model.User;
-import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.Reservation;
-import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.TempForReservation;
-import com.alessandro.napoletano.springbootoauth2demov2.repository.UserRepository;
-import com.alessandro.napoletano.springbootoauth2demov2.service.*;
+import com.alessandro.napoletano.springbootoauth2demov2.service.IntroService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,11 +29,11 @@ public class SpringbootOauth2Demov2Application {
         application.run(args);
     }
 
-    @Bean
+    /*@Bean
     CommandLineRunner runner(IntroService service) {
         return args -> {
             ObjectMapper mapper = new ObjectMapper();
-            TypeReference<ImportedLine> typeReference = new TypeReference<ImportedLine>(){};
+            TypeReference<Line> typeReference = new TypeReference<Line>(){};
 
             URL url = TypeReference.class.getResource("/json");
             File folder = new File(url.toURI());
@@ -50,15 +46,41 @@ public class SpringbootOauth2Demov2Application {
                 }
             }
 
+            List<Line> lines = new ArrayList<>();
             for(String filename : lineFilesNames){
                 InputStream inputStream = TypeReference.class.getResourceAsStream("/json/" + filename);
                 try {
-                    ImportedLine lineToImport = mapper.readValue(inputStream,typeReference);
-                    service.save(lineToImport);
+                    Line lineToImport = mapper.readValue(inputStream,typeReference);
+                    lines.add(lineToImport);
                 } catch (IOException e){
                     System.out.println("Unable to save line: " + e.getMessage());
                 }
             }
+
+            service.save(lines);
+
+            for(Line l : lines) {
+                service.setLineAdmin(l.getName(), l.getEmail());
+            }
         };
-    }
+    }*/
+
+    /*@Bean
+    CommandLineRunner runner(IntroService service) {
+        return args -> {
+            ObjectMapper mapper = new ObjectMapper();
+            TypeReference<List<Line>> typeReference = new TypeReference<List<Line>>(){};
+            InputStream inputStream = TypeReference.class.getResourceAsStream("/json/dancing_larvae.json");
+            try {
+                List<Line> lines = mapper.readValue(inputStream,typeReference);
+                service.save(lines);
+                System.out.println("Users Saved!");
+            } catch (IOException e){
+                System.out.println("Unable toUser save users: " + e.getMessage());
+            }
+        };
+    }*/
+
+
+
 }

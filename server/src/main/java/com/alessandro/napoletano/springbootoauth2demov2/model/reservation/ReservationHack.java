@@ -18,8 +18,6 @@ public class ReservationHack {
 
     private String status;
 
-    private Boolean reserved;
-
     private StopLine stopLine;
 
     private String child;

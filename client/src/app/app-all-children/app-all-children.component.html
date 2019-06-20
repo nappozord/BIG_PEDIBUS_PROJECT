@@ -20,6 +20,10 @@
             </a>
             <ng-template #subscribed>
               Subscribed to: {{ child.lineDefault.name }}
+              <br>
+              <a (click)="this.router.navigate(['/lines', { child: child.childName }])">
+                Change line
+              </a>
             </ng-template>
           </div>
         </div>

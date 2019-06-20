@@ -49,7 +49,10 @@
             <input nz-input
                    formControlName="line"
                    placeholder="Line Admin"
-                   nzSize="large"/>
+                   nzSize="large"
+                   (input)="this.authService.OnInputFilteredLines($event.target?.value)"
+                   [nzAutocomplete]="auto"/>
+            <nz-autocomplete [nzDataSource]="this.authService.filteredOptions" #auto></nz-autocomplete>
             <nz-form-explain
               *ngIf="(validateForm.get('name')?.dirty &&
               validateForm.get('name')?.errors) ||

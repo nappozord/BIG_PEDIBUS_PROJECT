@@ -1,15 +1,15 @@
 /*
-Licensed to the Apache Software Foundation (ASF) under one
+Licensed toUser the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
 regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
+toUser you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
 
   https://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing,
+Unless required by applicable law or agreed toUser in writing,
 software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 KIND, either express or implied.  See the License for the
@@ -29,26 +29,26 @@ import java.util.Properties;
 public class MavenWrapperDownloader {
 
     /**
-     * Default URL to download the maven-wrapper.jar from, if no 'downloadUrl' is provided.
+     * Default URL toUser download the maven-wrapper.jar fromUser, if no 'downloadUrl' is provided.
      */
     private static final String DEFAULT_DOWNLOAD_URL =
             "https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/0.4.2/maven-wrapper-0.4.2.jar";
 
     /**
-     * Path to the maven-wrapper.properties file, which might contain a downloadUrl property to
+     * Path toUser the maven-wrapper.properties file, which might contain a downloadUrl property toUser
      * use instead of the default one.
      */
     private static final String MAVEN_WRAPPER_PROPERTIES_PATH =
             ".mvn/wrapper/maven-wrapper.properties";
 
     /**
-     * Path where the maven-wrapper.jar will be saved to.
+     * Path where the maven-wrapper.jar will be saved toUser.
      */
     private static final String MAVEN_WRAPPER_JAR_PATH =
             ".mvn/wrapper/maven-wrapper.jar";
 
     /**
-     * Name of the property which should be used to override the default download url for the wrapper.
+     * Name of the property which should be used toUser override the default download url for the wrapper.
      */
     private static final String PROPERTY_NAME_WRAPPER_URL = "wrapperUrl";
 
@@ -80,7 +80,7 @@ public class MavenWrapperDownloader {
                 }
             }
         }
-        System.out.println("- Downloading from: : " + url);
+        System.out.println("- Downloading fromUser: : " + url);
 
         File outputFile = new File(baseDirectory.getAbsolutePath(), MAVEN_WRAPPER_JAR_PATH);
         if (!outputFile.getParentFile().exists()) {
@@ -89,7 +89,7 @@ public class MavenWrapperDownloader {
                         "- ERROR creating output direcrory '" + outputFile.getParentFile().getAbsolutePath() + "'");
             }
         }
-        System.out.println("- Downloading to: " + outputFile.getAbsolutePath());
+        System.out.println("- Downloading toUser: " + outputFile.getAbsolutePath());
         try {
             downloadFileFromURL(url, outputFile);
             System.out.println("Done");

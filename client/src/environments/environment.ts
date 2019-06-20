@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
 
-  API_BASE_URL: /*'http://nappozord.tk:8080'*/ 'http://localhost:8080',
+  API_BASE_URL: 'http://localhost:8080',
   ACCESS_TOKEN: 'accessToken',
 
-  OAUTH2_REDIRECT_URI: 'http://nappozord.tk:8080/oauth2/redirect',
-  GOOGLE_AUTH_URL: 'http://nappozord.tk:8080/oauth2/authorize/google?redirect_uri=http://nappozord.tk/oauth2/redirect',
-  FACEBOOK_AUTH_URL: 'http://nappozord.tk:8080/oauth2/authorize/facebook?redirect_uri=http://nappozord.tk/oauth2/redirect',
+  OAUTH2_REDIRECT_URI: 'http://localhost:8080/oauth2/redirect',
+  GOOGLE_AUTH_URL: 'http://localhost:8080/oauth2/authorize/google?redirect_uri=http://localhost/oauth2/redirect',
+  FACEBOOK_AUTH_URL: 'http://localhost:8080/oauth2/authorize/facebook?redirect_uri=http://localhost/oauth2/redirect',
 
   NAME_MIN_LENGTH: 4,
   NAME_MAX_LENGTH: 40,

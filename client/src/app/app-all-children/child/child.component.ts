@@ -121,9 +121,7 @@ export class ChildComponent implements OnInit {
   }
 
   reservationUpdate(date_, id_, modalTpl: TemplateRef<{}>, idStopLine, id_res, status) {
-
-    // TODO: when a reservation without subscribe is done, do not show modal, instead eliminate the reservation
-
+    console.log();
     this.id_ = id_;
     this.date_ = date_;
     this.idStopLine = idStopLine;

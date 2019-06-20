@@ -1,47 +1,46 @@
-
 {
-  "name": "Piazza Castello - Politecnico di Torino",
-  "email": "test@test.it",
+  "name": "Buzzing Moths (NYC - Bronx)",
+  "email": "alenappo123@live.it",
   "stopLines_going": [
     {
       "stop": {
-        "name": "Piazza Castello"
+        "name": "Wakefield St"
       },
       "hour": "07:00"
     },
     {
       "stop": {
-        "name": "Porta Nuova"
+        "name": "Nereid Av"
       },
       "hour": "07:10"
     },
     {
       "stop": {
-        "name": "Galileo Ferraris"
+        "name": "Gun Hill Rd"
       },
       "hour": "07:20"
     },
     {
       "stop": {
-        "name": "Vinzaglio"
+        "name": "Burke Av"
       },
       "hour": "07:30"
     },
     {
       "stop": {
-        "name": "Stati Uniti"
+        "name": "Freeman St"
       },
       "hour": "07:40"
     },
     {
       "stop": {
-        "name": "Politecnico - Duca degli Abruzzi"
+        "name": "Simpson St"
       },
       "hour": "07:50"
     },
     {
       "stop": {
-        "name": "Politecnico - Corso Castelfidardo"
+        "name": "Bronx Elementary School"
       },
       "hour": "08:00"
     }
@@ -49,43 +48,43 @@
   "stopLines_return": [
     {
       "stop": {
-        "name": "Politecnico - Corso Castelfidardo"
+        "name": "Bronx Elementary School"
       },
       "hour": "16:00"
     },
     {
       "stop": {
-        "name": "Politecnico - Duca degli Abruzzi"
+        "name": "Simpson St"
       },
       "hour": "16:10"
     },
     {
       "stop": {
-        "name": "Stati Uniti"
+        "name": "Freeman St"
       },
       "hour": "16:20"
     },
     {
       "stop": {
-        "name": "Vinzaglio"
+        "name": "Bronx Park East"
       },
       "hour": "16:30"
     },
     {
       "stop": {
-        "name": "Galileo Ferraris"
+        "name": "Pelham Pkwy"
       },
       "hour": "16:40"
     },
     {
       "stop": {
-        "name": "Porta Nuova"
+        "name": "Nereid Av"
       },
       "hour": "16:50"
     },
     {
       "stop": {
-        "name": "Piazza Castello"
+        "name": "Wakefield St"
       },
       "hour": "17:00"
     }

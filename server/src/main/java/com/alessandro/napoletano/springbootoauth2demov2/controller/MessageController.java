@@ -1,7 +1,6 @@
 package com.alessandro.napoletano.springbootoauth2demov2.controller;
 
 import com.alessandro.napoletano.springbootoauth2demov2.model.Message;
-import com.alessandro.napoletano.springbootoauth2demov2.payload.ApiResponse;
 import com.alessandro.napoletano.springbootoauth2demov2.payload.ApiResponseUser;
 import com.alessandro.napoletano.springbootoauth2demov2.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
+import java.net.URI;
 
 @Controller
 public class MessageController {
@@ -35,7 +35,7 @@ public class MessageController {
                 .buildAndExpand().toUri();
 
         return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "OK!"));
+                .body(new ApiResponseUser(true, "OK!"));
     }
 
 }

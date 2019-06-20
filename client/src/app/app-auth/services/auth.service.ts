@@ -253,6 +253,10 @@ export class AuthService {
     return this.http.get(API_BASE_URL + '/child/' + childName);
   }
 
+  getAllChildren() {
+    return this.http.get(API_BASE_URL + '/allChildren');
+  }
+
   OnInputFilteredLinesForSearch(value: string): void {
 
     this.filteredOptions = [];
@@ -331,7 +335,7 @@ export class AuthService {
   showMessageOutput(messageOutput) {
     console.log(messageOutput);
     this.getCurrentUser();
-    this.setAllChildren();
+    this.setAllUserChildren();
   }
 
   calculateNotificationCount(data) {
@@ -369,7 +373,7 @@ export class AuthService {
     localStorage.setItem('currentUser', JSON.stringify(currentUser_));*/
   }
 
-  setAllChildren() {
+  setAllUserChildren() {
     this.getAllChildrenInfoAndReservations()
       .pipe(first())
       .subscribe(

@@ -20,8 +20,10 @@ export class HomeComponent implements OnInit {
   private currentChild_going;
   private currentChild_return;
   private date = new Date();
-  private allChildren;
+  private allUserChildren;
   private GorR: boolean;
+  private addChildNotReserved: boolean;
+  private allChildrenGeneral;
 
   constructor(
     private authService: AuthService,
@@ -32,6 +34,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.notification = this.authService.setNotificationConfig();
 
+    this.addChildNotReserved = false;
     this.GorR = true;
 
     if (new Date().getHours() > 12) {
@@ -44,16 +47,32 @@ export class HomeComponent implements OnInit {
       this.currentUser = user;
     });
 
-    this.authService.setAllChildren();
+    this.setAllChildrenGeneral();
+
+    this.authService.setAllUserChildren();
 
     this.authService.allChildren.subscribe(children => {
-      this.allChildren = children;
+      this.allUserChildren = children;
     });
-
-    console.log(this.allChildren);
 
     this.getStopLines();
 
+    console.log(this.allUserChildren);
+  }
+
+  setAllChildrenGeneral() {
+    this.authService.getAllChildren()
+      .subscribe(
+        (data: any) => {
+          this.allChildrenGeneral = data.children;
+          console.log(this.allChildrenGeneral);
+        },
+        error => {
+          this.notification.error(
+            'PBus',
+            error || 'Sorry! Something went wrong. Please try again!'
+          );
+        });
   }
 
   selectGoingOrReturn() {
@@ -125,6 +144,7 @@ export class HomeComponent implements OnInit {
   }
 
   getChildReservation(reservation, stopLine) {
+    // console.log(this.allUserChildren);
     if (reservation.stopLine.stop.name === stopLine.stop.name) {
       return true;
     }
@@ -317,4 +337,42 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  addReservationAndSetTaken(child, stopLine) {
+
+    const reservation = {
+      line: this.currentTurn.line.name,
+      date: this.date,
+      stop: stopLine.stop.id,
+      id: stopLine.id,
+      child: child.childName,
+      direction: '',
+      status: 'TAKEN'
+    };
+
+    if (this.GorR) {
+      reservation.direction = 'GOING';
+    } else {
+      reservation.direction = 'RETURN';
+    }
+
+    console.log(this.currentReservation);
+    console.log(reservation);
+
+    this.authService.reservationConfirm(reservation)
+      .subscribe(
+        (data: any) => {
+          this.notification.success(
+            'PBus',
+            'Kid taken!'
+          );
+          this.getStopLines();
+        },
+        error => {
+          this.notification.error(
+            'PBus',
+            error || 'Something went wrong'
+          );
+        }
+      );
+  }
 }

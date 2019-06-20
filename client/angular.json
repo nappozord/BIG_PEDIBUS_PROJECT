@@ -80,8 +80,8 @@
           "options": {
             "browserTarget": "polling-app-angular-client:build",
             "port": 80,
-            "host": "0.0.0.0"// ,
-            // "publicHost": "nappozord.tk"
+            "host": "0.0.0.0"//,
+            //"publicHost": "nappozord.tk"
           },
           "configurations": {
             "production": {

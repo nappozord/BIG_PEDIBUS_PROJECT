@@ -25,7 +25,19 @@
       <div *ngFor="let stopLine of this.currentStopLines">
         <nz-timeline-item nzColor="green">
           <nz-collapse>
-            <nz-collapse-panel [nzHeader]="stopLine.stop.name" style="font-weight: 600; font-size: 17px">
+            <nz-collapse-panel [nzHeader]=stopLine.stop.name [nzExtra]="extra" style="font-weight: 600; font-size: 17px">
+              <ng-template #extra>
+                <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+                  <a nz-dropdown>
+                    <i nz-icon nzType="user-add" nz-tooltip nzTitle="Add child"></i>
+                  </a>
+                  <ul nz-menu>
+                    <li nz-menu-item *ngFor="let child of this.allChildrenGeneral">
+                      <div (click)="addReservationAndSetTaken(child, stopLine)">{{child.childName}}</div>
+                    </li>
+                  </ul>
+                </nz-dropdown>
+              </ng-template>
               <a *ngFor="let reservation of currentReservation" style="font-weight: 400">
                 <a *ngIf="getChildReservation(reservation, stopLine)" nz-popover
                    (click)="setMarked(reservation)">
@@ -52,7 +64,7 @@
     <h2 style="text-align: center">Your children's reservations Today</h2>
 
     <div>
-      <nz-list [nzDataSource]="allChildren" [nzRenderItem]="children" [nzItemLayout]="'horizontal'" style="padding-top: 2%">
+      <nz-list [nzDataSource]="allUserChildren" [nzRenderItem]="children" [nzItemLayout]="'horizontal'" style="padding-top: 2%">
         <ng-template #children let-child>
           <nz-list-item>
             <div class="user-avatar">

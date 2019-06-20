@@ -135,4 +135,18 @@ public class ChildController {
                 .body(new ApiResponseUser(true, "Here are your children!"));
 
     }
+
+    @GetMapping("/allChildren")
+    public ResponseEntity<?> getAllChildren(){
+
+        List<Child> children = childRepository.findAll();
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .buildAndExpand(children).toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponseChildren(true, "All children!", children));
+
+    }
 }

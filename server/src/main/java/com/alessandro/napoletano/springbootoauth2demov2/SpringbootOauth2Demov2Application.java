@@ -29,7 +29,7 @@ public class SpringbootOauth2Demov2Application {
         application.run(args);
     }
 
-    /*@Bean
+    @Bean
     CommandLineRunner runner(IntroService service) {
         return args -> {
             ObjectMapper mapper = new ObjectMapper();
@@ -63,7 +63,7 @@ public class SpringbootOauth2Demov2Application {
                 service.setLineAdmin(l.getName(), l.getEmail());
             }
         };
-    }*/
+    }
 
     /*@Bean
     CommandLineRunner runner(IntroService service) {

@@ -262,7 +262,7 @@ export class ProfileComponent implements OnInit {
   updateCurrentUser() {
     for (let i = 0; i < this.childrenList.length; i++) {
       if (this.childrenList[i].status === 'deleted') {
-        this.currentUser.children = this.currentUser.children.filter(d => d.name !== this.childrenList[i].name );
+        this.currentUser.children = this.currentUser.children.filter(d => d.childName !== this.childrenList[i].childName );
       }
     }
     localStorage.setItem('currentUser', JSON.stringify(this.currentUser));

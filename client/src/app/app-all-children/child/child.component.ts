@@ -149,6 +149,36 @@ export class ChildComponent implements OnInit {
     this.onModal = false;
   }
 
+  /*reservationDelete(res, date) {
+    console.log(res);
+    const reservation = {
+      line: '',       // CAN'T KNOW THE NAME OF THE LINE FROM A SINGLE RESERVATION
+      date: date,
+      stop: res.stopLine,
+      child: this.currentChildName,
+      direction: res.stopLine.direction,
+      id: res.idStopLine,
+      id_res: res.id_res,
+      status: 'deleted'
+    };
+    console.log(reservation);
+    this.authService.reservationUpdate(reservation)
+      .pipe(first())
+      .subscribe(
+        result => {
+          this.notification.success(
+            'PBus',
+            'Your reservation has been deleted'
+          );
+        },
+        error => {
+          this.notification.error(
+            'PBus',
+            error || 'Something went wrong'
+          );
+        });
+  }*/
+
   reservationChange(reservation) {
     console.log(reservation);
     for (let i = 0; i < this.currentReservationHacks.length; i++) {

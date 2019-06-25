@@ -45,7 +45,7 @@ spring:
             tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
             userInfoUri: https://graph.facebook.com/v3.0/me?fields=child_id,first_name,middle_name,last_name,childName,email,verified,is_verified,picture.width(250).height(250)
 
-    mail:
+  mail:
     host: smtp.gmail.com
     port: 587
     username: nappozordtest@gmail.com
@@ -59,7 +59,6 @@ spring:
           writetimeout: 8000
           starttls:
             enable: true
-
 
 app:
   auth:

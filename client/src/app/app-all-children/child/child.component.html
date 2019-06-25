@@ -33,7 +33,7 @@
           <div *ngFor="let date2 of this.currentReservationHacks">
             <div *ngIf="this.getCellDate(date, date2);">
               <li>
-                <a class="stop" (click)="currentChild.lineDefault && reservationUpdate(date, 0, modalTpl, date2.stopLine.id, date2.id, date2.status)" *ngIf="going_return(date2)">
+                <a class="stop" (click)="reservationUpdate(date, 0, modalTpl, date2.stopLine.id, date2.id, date2.status)" *ngIf="going_return(date2)">
                   <div *ngIf="isReservationDeleted(date2); else deleteGoing">
                     <nz-badge [nzColor]="'rgba(17,169,201,0.83)'" [nzText]="getStopsNotDefault(date2)"></nz-badge>
                   </div>
@@ -58,7 +58,7 @@
           <div *ngFor="let date2 of this.currentReservationHacks">
             <div *ngIf="this.getCellDate(date, date2);">
               <li>
-                <a class="stop" (click)="currentChild.lineDefault  && reservationUpdate(date, 1, modalTpl, date2.stopLine.id, date2.id, date2.status)" *ngIf="!going_return(date2)">
+                <a class="stop" (click)="reservationUpdate(date, 1, modalTpl, date2.stopLine.id, date2.id, date2.status)" *ngIf="!going_return(date2)">
                   <div *ngIf="isReservationDeleted(date2); else deleteReturn">
                     <nz-badge [nzColor]="'rgba(17,169,201,0.83)'" [nzText]="getStopsNotDefault(date2)"></nz-badge>
                   </div>

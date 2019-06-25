@@ -81,6 +81,10 @@ export class AuthService {
         'status': reservation.status});
   }
 
+  reservationDelete(id_res) {
+    return this.http.delete(API_BASE_URL + '/reservations/' + id_res);
+  }
+
   turnConfirm(turn: any) {
     return this.http.post(API_BASE_URL + '/turns/' + turn.line + '/' + turn.date, {'stopLine_start': turn.stopLine_start,
     'stopLine_arrival': turn.stopLine_arrival, 'name': turn.name, 'direction': turn.direction});

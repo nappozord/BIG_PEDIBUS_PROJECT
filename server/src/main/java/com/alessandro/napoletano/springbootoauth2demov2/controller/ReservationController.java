@@ -8,6 +8,7 @@ import com.alessandro.napoletano.springbootoauth2demov2.model.stopline.StopLine;
 import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.TempForReservation;
 import com.alessandro.napoletano.springbootoauth2demov2.payload.ApiResponseReservation;
 import com.alessandro.napoletano.springbootoauth2demov2.payload.ApiResponseUser;
+import com.alessandro.napoletano.springbootoauth2demov2.payload.AuthResponse;
 import com.alessandro.napoletano.springbootoauth2demov2.repository.ChildRepository;
 import com.alessandro.napoletano.springbootoauth2demov2.repository.MessageRepository;
 import com.alessandro.napoletano.springbootoauth2demov2.repository.ReservationRepository;
@@ -159,13 +160,16 @@ public class ReservationController {
                 .body(new ApiResponseUser(true, "Reservation succeeded!"));
     }
 
-    //Useless
-    private Reservation deleteReservation(Long id){
-        Reservation reservation = reservationRepository.findById(id).get();
-        reservation.setStatus("deleted");
-        reservationRepository.save(reservation);
+    @DeleteMapping("reservations/{id_res}")
+    private ResponseEntity<?> deleteReservation(@PathVariable("id_res") Long id_res){
+        reservationRepository.deleteById(id_res);
 
-        return reservation;
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .buildAndExpand().toUri();
+
+        return ResponseEntity.created(location)
+                .body(new ApiResponseUser(true, "Reservation deleted!"));
     }
 
     @GetMapping("reservations/{nome_linea}/{data}/{reservation_id}")

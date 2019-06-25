@@ -45,7 +45,7 @@ spring:
             tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
             userInfoUri: https://graph.facebook.com/v3.0/me?fields=child_id,first_name,middle_name,last_name,childName,email,verified,is_verified,picture.width(250).height(250)
 
-  mail:
+    mail:
     host: smtp.gmail.com
     port: 587
     username: nappozordtest@gmail.com
@@ -71,6 +71,7 @@ app:
     # redirectUri mentioned by the frontend client in the /oauth2/authorize request.
     # We're not using cookies because they won't work well in mobile clients.
     authorizedRedirectUris:
+      - http://nappozord.tk/oauth2/redirect
       - http://localhost/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect

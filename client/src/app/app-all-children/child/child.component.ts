@@ -122,23 +122,27 @@ export class ChildComponent implements OnInit {
 
   reservationUpdate(date_, id_, modalTpl: TemplateRef<{}>, idStopLine, id_res, status) {
     console.log();
-    this.id_ = id_;
-    this.date_ = date_;
-    this.idStopLine = idStopLine;
-    this.id_res = id_res;
-    this.status_old = status;
-    this.confirmModal = this.modal.create({
-      nzTitle: 'Update your reservation',
-      nzContent: modalTpl,
-      nzStyle: {top: '20px'},
-      nzClosable: false,
-      nzFooter: [
-        {
-          label: ''
-        }
-      ]
-    });
-    this.onModal = true;
+    if (this.currentChild.lineDefault) {
+      this.id_ = id_;
+      this.date_ = date_;
+      this.idStopLine = idStopLine;
+      this.id_res = id_res;
+      this.status_old = status;
+      this.confirmModal = this.modal.create({
+        nzTitle: 'Update your reservation',
+        nzContent: modalTpl,
+        nzStyle: {top: '20px'},
+        nzClosable: false,
+        nzFooter: [
+          {
+            label: ''
+          }
+        ]
+      });
+      this.onModal = true;
+    } else {
+      this.reservationDelete(date_, id_res);
+    }
   }
 
   reservationAdd(reservation) {
@@ -149,20 +153,9 @@ export class ChildComponent implements OnInit {
     this.onModal = false;
   }
 
-  /*reservationDelete(res, date) {
-    console.log(res);
-    const reservation = {
-      line: '',       // CAN'T KNOW THE NAME OF THE LINE FROM A SINGLE RESERVATION
-      date: date,
-      stop: res.stopLine,
-      child: this.currentChildName,
-      direction: res.stopLine.direction,
-      id: res.idStopLine,
-      id_res: res.id_res,
-      status: 'deleted'
-    };
-    console.log(reservation);
-    this.authService.reservationUpdate(reservation)
+  reservationDelete(date, id_res) {
+    console.log(id_res);
+    this.authService.reservationDelete(id_res)
       .pipe(first())
       .subscribe(
         result => {
@@ -170,6 +163,9 @@ export class ChildComponent implements OnInit {
             'PBus',
             'Your reservation has been deleted'
           );
+          console.log(this.currentReservationHacks);
+          this.currentReservationHacks = this.currentReservationHacks.filter( d => d.id !== id_res);
+          console.log(this.currentReservationHacks);
         },
         error => {
           this.notification.error(
@@ -177,7 +173,7 @@ export class ChildComponent implements OnInit {
             error || 'Something went wrong'
           );
         });
-  }*/
+  }
 
   reservationChange(reservation) {
     console.log(reservation);

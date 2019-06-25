@@ -1,0 +1,68 @@
+{
+  "name": "Politecnico",
+  "email": "admin1@test.it",
+  "stopLines_going": [
+    {
+      "stop": {
+        "name": "Corso De Gasperi"
+      },
+      "hour": "07:00"
+    },
+    {
+      "stop": {
+        "name": "Via Cristoforo Colombo"
+      },
+      "hour": "07:10"
+    },
+    {
+      "stop": {
+        "name": "Via Amerigo Vespucci"
+      },
+      "hour": "07:20"
+    },
+    {
+      "stop": {
+        "name": "Corso Einaudi"
+      },
+      "hour": "07:30"
+    },
+    {
+      "stop": {
+        "name": "Politecnico di Torino"
+      },
+      "hour": "07:40"
+    }
+  ],
+  "stopLines_return": [
+    {
+      "stop": {
+        "name": "Politecnico di Torino"
+      },
+      "hour": "16:00"
+    },
+    {
+      "stop": {
+        "name": "Corso Einaudi"
+      },
+      "hour": "16:10"
+    },
+    {
+      "stop": {
+        "name": "Via Amerigo Vespucci"
+      },
+      "hour": "16:20"
+    },
+    {
+      "stop": {
+        "name": "Via Cristoforo Colombo"
+      },
+      "hour": "16:30"
+    },
+    {
+      "stop": {
+        "name": "Corso De Gasperi"
+      },
+      "hour": "16:40"
+    }
+  ]
+}

@@ -22,7 +22,6 @@ export class Oauth2Component implements OnInit {
       localStorage.setItem('accessToken', token);
       this.authService.getCurrentUser();
       this.router.navigate(['/']);
-      this.authService.getAllLines();
     } else {
       this.router.navigate(['login']);
     }

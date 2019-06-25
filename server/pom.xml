@@ -6,12 +6,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent fromUser repository -->
     </parent>
     <groupId>com.alessandro.napoletano</groupId>
-    <artifactId>lab5</artifactId>
-    <version>1.0.0</version>
-    <name>lab5</name>
+    <artifactId>springboot-oauth2-demov2</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>springboot-oauth2-demov2</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -82,6 +82,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

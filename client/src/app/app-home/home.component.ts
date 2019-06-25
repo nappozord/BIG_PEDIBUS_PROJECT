@@ -48,8 +48,8 @@ export class HomeComponent implements OnInit {
     });
 
     this.setAllChildrenGeneral();
-
     this.authService.setAllUserChildren();
+
 
     this.authService.allChildren.subscribe(children => {
       this.allUserChildren = children;
@@ -144,7 +144,6 @@ export class HomeComponent implements OnInit {
   }
 
   getChildReservation(reservation, stopLine) {
-    // console.log(this.allUserChildren);
     if (reservation.stopLine.stop.name === stopLine.stop.name) {
       return true;
     }
@@ -267,7 +266,7 @@ export class HomeComponent implements OnInit {
   }
 
   hasNotDefaultYet(child) {
-    if (child.child.lineDefault === null && !this.getWaitingInStop(child)) {
+    if (child.lineDefault === null) {
       return true;
     }
     return false;
@@ -276,8 +275,7 @@ export class HomeComponent implements OnInit {
   isChildTaken(child) {
     if (new Date().getHours() < 12) {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
-        && d.stopLine.direction === 'GOING').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'GOING').length > 0) {
         // CHANGEX
         if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'GOING')[0].status === 'TAKEN') {
@@ -290,8 +288,7 @@ export class HomeComponent implements OnInit {
       }
     } else {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
-        && d.stopLine.direction === 'RETURN').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'RETURN').length > 0) {
         // CHANGEX
         if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'RETURN')[0].status === 'TAKEN') {
@@ -308,35 +305,24 @@ export class HomeComponent implements OnInit {
   getWaitingInStop(child) {
     if (new Date().getHours() < 12) {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
-        && d.stopLine.direction === 'GOING').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'GOING').length > 0) {
         // CHANGEX
         return child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'GOING')[0].stopLine.stop.name;
       } else {
-        if (child.child.defaultGoing !== null) {
-          return child.child.defaultGoing.stop.name;
-        } else {
-          return null;
-        }
+        return child.child.defaultGoing.stop.name;
       }
     } else {
       // CHANGEX
-      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
-        && d.stopLine.direction === 'RETURN').length > 0) {
+      if (child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime() && d.stopLine.direction === 'RETURN').length > 0) {
         // CHANGEX
         return child.reservations.filter(d => this.authService.stringToDate(d.date.toString()) === this.date.getTime()
           && d.stopLine.direction === 'RETURN')[0].stopLine.stop.name;
       } else {
-        if (child.child.defaultReturn !== null) {
-          return child.child.defaultReturn.stop.name;
-        } else {
-          return null;
-        }
+        return child.child.defaultReturn.stop.name;
       }
     }
   }
-
   addReservationAndSetTaken(child, stopLine) {
 
     const reservation = {

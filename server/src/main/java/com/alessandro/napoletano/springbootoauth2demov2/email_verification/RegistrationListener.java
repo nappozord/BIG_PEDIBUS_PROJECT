@@ -34,14 +34,20 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";
         String confirmationUrl
-                =  "http://nappozord.tk/registrationconfirm?token=" + token;
-        String message = "HELLO! CONFIRM EVERYTHING PLS!!!";
+                =  "http://localhost/registrationconfirm?token=" + token;
+        String message = "Hi, and welcome in our Pedibus service! \n" +
+                "To confirm your account, please click on the link below.";
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText(message + "\n" + confirmationUrl);
-        mailSender.send(email);
+        try {
+            mailSender.send(email);
+        }catch (Exception e){
+            verificationTokenRepository.delete(verificationToken);
+            throw new RuntimeException();
+        }
     }
 
 }

@@ -18,7 +18,7 @@ import java.util.List;
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int child_id;
 
     private String childName;
 

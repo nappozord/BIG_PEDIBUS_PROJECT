@@ -1,7 +1,6 @@
 package com.alessandro.napoletano.springbootoauth2demov2.model.reservation;
 
 import com.alessandro.napoletano.springbootoauth2demov2.model.stopline.StopLine;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -18,8 +17,6 @@ public class ReservationHack {
     private String date;
 
     private String status;
-
-    private Boolean reserved;
 
     private StopLine stopLine;
 

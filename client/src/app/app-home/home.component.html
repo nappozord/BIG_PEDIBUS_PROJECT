@@ -3,7 +3,7 @@
     <div class="graf-bg-container">
       <div class="graf-layout">
         <img style="width: 100%; height: auto;"
-          src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e0bd42a6-995e-42a4-87fe-3ea9e97a4623/dd5vdis-185e7199-a16e-4e43-8c86-095ab4d06b79.png/v1/fill/w_1024,h_592,strp/old_man_and_young_man_by_nappozord_dd5vdis-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTkyIiwicGF0aCI6IlwvZlwvZTBiZDQyYTYtOTk1ZS00MmE0LTg3ZmUtM2VhOWU5N2E0NjIzXC9kZDV2ZGlzLTE4NWU3MTk5LWExNmUtNGU0My04Yzg2LTA5NWFiNGQwNmI3OS5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.KnVx0iMSmF8yV0Wl9ReXejLpWN-2yAufqCJiQOgKSWo"/>
+             src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e0bd42a6-995e-42a4-87fe-3ea9e97a4623/dd5vdis-185e7199-a16e-4e43-8c86-095ab4d06b79.png/v1/fill/w_1024,h_592,strp/old_man_and_young_man_by_nappozord_dd5vdis-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTkyIiwicGF0aCI6IlwvZlwvZTBiZDQyYTYtOTk1ZS00MmE0LTg3ZmUtM2VhOWU5N2E0NjIzXC9kZDV2ZGlzLTE4NWU3MTk5LWExNmUtNGU0My04Yzg2LTA5NWFiNGQwNmI3OS5wbmciLCJ3aWR0aCI6Ijw9MTAyNCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.KnVx0iMSmF8yV0Wl9ReXejLpWN-2yAufqCJiQOgKSWo"/>
         <h1 class="home-title">Trust somebody's else Grampa :)</h1>
       </div>
     </div>
@@ -16,16 +16,18 @@
 
     <div style="margin-top: 20px; margin-bottom: 30px;">
       <nz-date-picker [(ngModel)]="date" [nzAllowClear]="false" (ngModelChange)="getStopLines()" nzSize="large"
-                       style="width: 70%; float: left"></nz-date-picker>
+                      style="width: 70%; float: left"></nz-date-picker>
 
-      <button nz-button (click)="selectGoingOrReturn()" nzSize="large" style="width: 30%">{{GorR ? 'GOING' : 'RETURN'}}</button>
+      <button nz-button (click)="selectGoingOrReturn()" nzSize="large"
+              style="width: 30%">{{GorR ? 'GOING' : 'RETURN'}}</button>
     </div>
 
     <nz-timeline>
       <div *ngFor="let stopLine of this.currentStopLines">
         <nz-timeline-item nzColor="green">
           <nz-collapse>
-            <nz-collapse-panel [nzHeader]=stopLine.stop.name [nzExtra]="extra" style="font-weight: 600; font-size: 17px">
+            <nz-collapse-panel [nzHeader]=stopLine.stop.name [nzExtra]="extra"
+                               style="font-weight: 600; font-size: 17px">
               <ng-template #extra>
                 <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
                   <a nz-dropdown>
@@ -80,7 +82,8 @@
                 {{ child.child.childName }}
               </a>
               <div class="username">
-                <a *ngIf="hasNotDefaultYet(child); else subscribed" (click)="this.router.navigate(['/lines', { child: child.child.childName }])">
+                <a *ngIf="hasNotDefaultYet(child.child); else subscribed"
+                   (click)="this.router.navigate(['/lines', { child: child.child.childName }])">
                   Subscribe to a new line now!
                 </a>
                 <ng-template #subscribed>

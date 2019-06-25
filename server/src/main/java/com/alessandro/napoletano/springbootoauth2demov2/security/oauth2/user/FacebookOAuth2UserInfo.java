@@ -9,7 +9,7 @@ public class FacebookOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getId() {
-        return (String) attributes.get("id");
+        return (String) attributes.get("child_id");
     }
 
     @Override

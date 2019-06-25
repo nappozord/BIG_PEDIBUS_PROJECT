@@ -35,8 +35,9 @@ public class PasswordResetListener implements ApplicationListener<OnPasswordRese
         String recipientAddress = user.getEmail();
         String subject = "Password Reset";
         String confirmationUrl
-                =  "http://nappozord.tk/recoveryconfirm?token=" + token;
-        String message = "HELLO! CONFIRM YOUR PASSWORD RESET PLS!!!";
+                =  "http://localhost/recoveryconfirm?token=" + token;
+        String message = "A password reset has been requested for this account\n" +
+                "If you haven't requested it just ignore this mail, otherwise click on the link below";
 
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);

@@ -1,6 +1,7 @@
 package com.alessandro.napoletano.springbootoauth2demov2.model.child;
 
 import com.alessandro.napoletano.springbootoauth2demov2.model.reservation.ReservationHack;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

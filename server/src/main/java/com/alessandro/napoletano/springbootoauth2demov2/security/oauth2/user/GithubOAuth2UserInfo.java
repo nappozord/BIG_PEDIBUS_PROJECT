@@ -10,7 +10,7 @@ public class GithubOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getId() {
-        return ((Integer) attributes.get("id")).toString();
+        return ((Integer) attributes.get("child_id")).toString();
     }
 
     @Override

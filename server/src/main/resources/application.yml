@@ -3,7 +3,7 @@ spring:
 #    url: jdbc:postgresql://postgres:5432/postgres
     url: jdbc:postgresql://127.0.0.1:5432/postgres
     username: postgres
-    password: 12345
+    password: admin
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
 
@@ -45,19 +45,20 @@ spring:
             tokenUri: https://graph.facebook.com/v3.0/oauth/access_token
             userInfoUri: https://graph.facebook.com/v3.0/me?fields=id,first_name,middle_name,last_name,name,email,verified,is_verified,picture.width(250).height(250)
 
-  mail:
+    mail:
     host: smtp.gmail.com
-    port: 465
-    protocol: smtps
-    username: adventurepoop123@gmail.com
-    password: 123qwe.123qwe...
+    port: 587
+    username: nappozordtest@gmail.com
+    password: nappozordtest123
     properties:
       mail:
-        transport:
-          protocol: smtps
-        smtps:
+        smtp:
           auth: true
           timeout: 8000
+          connectiontimeout: 8000
+          writetimeout: 8000
+          starttls:
+            enable: true
 
 app:
   auth:
@@ -75,4 +76,4 @@ app:
       - myiosapp://oauth2/redirect
 
 support:
-  email: adventurepoop123@gmail.com
+  email: nappozordtest@gmail.com
